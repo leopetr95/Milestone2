@@ -78,25 +78,21 @@ public class GetCommits {
 
                     }
 
-                }else if(projName.equals("ZOOKEEPER") && fullMessage.length() > 14) {
+                }else if((projName.equals("ZOOKEEPER")) && (fullMessage.length() > 14) && (fullMessage.substring(0, 10).contains("ZOOKEEPER-"))) {
 
-                        if (fullMessage.substring(0, 10).contains("ZOOKEEPER-")) {
+                    shortMessage = fullMessage.substring(0, fullMessage.indexOf(" "));
 
-                            shortMessage = fullMessage.substring(0, fullMessage.indexOf(" "));
+                    if ((shortMessage.contains("."))) {
 
-                            if ((shortMessage.contains("."))) {
+                        shortMessage = shortMessage.substring(0, shortMessage.indexOf("."));
 
-                                shortMessage = shortMessage.substring(0, shortMessage.indexOf("."));
+                    }else if(shortMessage.contains(":")) {
 
-                            }else if(shortMessage.contains(":")) {
+                        shortMessage = shortMessage.substring(0, shortMessage.indexOf(":"));
 
-                                shortMessage = shortMessage.substring(0, shortMessage.indexOf(":"));
+                    }
 
-                            }
-
-                            dataList.add(new String[]{date, tree, shortMessage});
-
-                        }
+                    dataList.add(new String[]{date, tree, shortMessage});
 
                 }
 
@@ -118,8 +114,8 @@ public class GetCommits {
 
     public static void main(String[] args){
 
-        importProp("BOOKKEEPER");
-        writeCommit("BOOKKEEPER");
+        importProp(PROJECT1);
+        writeCommit(PROJECT1);
 
     }
 

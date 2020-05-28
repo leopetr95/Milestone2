@@ -24,7 +24,6 @@ public class GetReleaseInfo {
     private static HashMap<LocalDateTime, String> releaseNames;
     private static HashMap<LocalDateTime, String> releaseID;
     private static ArrayList<LocalDateTime> releases;
-    private static Integer numVersions;
 
     //La classe restituisce le release del progetto preso in considerazione fino ad ora
 
@@ -32,7 +31,9 @@ public class GetReleaseInfo {
 
         //Fills the arraylist with releases dates and orders them
         //Ignores releases with missing dates
-        releases = new ArrayList<LocalDateTime>();
+        releases = new ArrayList<>();
+        Integer numVersions;
+
 
         Integer i;
 
@@ -41,8 +42,8 @@ public class GetReleaseInfo {
         JSONObject json = readJsonFromUrl(url);
         JSONArray versions = json.getJSONArray("versions");
 
-        releaseNames = new HashMap<LocalDateTime, String>();
-        releaseID = new HashMap<LocalDateTime, String> ();
+        releaseNames = new HashMap<>();
+        releaseID = new HashMap<> ();
 
         for (i = 0; i < versions.length(); i++ ) {
 
@@ -94,7 +95,7 @@ public class GetReleaseInfo {
 
             numVersions = releases.size();
 
-            for ( i = 0; i < releases.size(); i++) {
+            for ( i = 0; i < numVersions; i++) {
 
                 Integer index = i + 1;
                 fileWriter.append(index.toString());
