@@ -15,6 +15,7 @@ import java.util.Comparator;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.eclipse.jgit.internal.storage.file.FileRepository;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONArray;
@@ -83,14 +84,12 @@ public class GetReleaseInfo {
 
         }
 
-        FileWriter fileWriter = null;
+        String outname = projName + "VersionInfo.csv";
 
-        try {
+        try(FileWriter fileWriter = new FileWriter(outname)) {
 
-            fileWriter = null;
-            String outname = projName + "VersionInfo.csv";
             //Name of CSV for output
-            fileWriter = new FileWriter(outname);
+            //fileWriter = new FileWriter(outname);
             fileWriter.append("Index,Version ID,Version Name,Date");
             fileWriter.append("\n");
 
@@ -114,20 +113,6 @@ public class GetReleaseInfo {
 
             System.out.println("Error in csv writer");
             e.printStackTrace();
-
-        } finally {
-
-            try{
-
-                fileWriter.flush();
-                fileWriter.close();
-
-            }catch (IOException e) {
-
-                System.out.println("Error while flushing/closing fileWriter !!!");
-                e.printStackTrace();
-
-            }
 
         }
 

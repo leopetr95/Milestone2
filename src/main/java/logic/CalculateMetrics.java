@@ -40,7 +40,6 @@ import static utility.ImportProperties.*;
 
 public class CalculateMetrics {
 
-    static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
     /*
     * Compute MAX ChgSet and AVG ChgSet
@@ -126,6 +125,9 @@ public class CalculateMetrics {
         int linesAdded = 0;
         int linesDeleted = 0;
         int linesTouched = 0;
+
+        final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
 
         Git git = new Git(new FileRepository(cPath));
         Repository repository = git.getRepository();
@@ -437,6 +439,8 @@ public class CalculateMetrics {
         Date verTime;
         int size;
         int weeks;
+        final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
 
         try(FileReader fileReader = new FileReader(csvClassPath);CSVReader csvReader = new CSVReader(fileReader);
         FileReader fileReader1 = new FileReader(versionInfo); CSVReader csvReader1 = new CSVReader(fileReader1);
