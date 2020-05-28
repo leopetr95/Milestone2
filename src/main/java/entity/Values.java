@@ -9,22 +9,29 @@ public class Values {
     private String string5;
     private String string6;
     private String string7;
-    private String string8;
-    private String string9;
-    private String string10;
     private int temp;
     private int counter;
+    private SubValues subValues;
 
-    public Values(String string1, String string2, String string3, String string4, String string5, String string6, String string7, String string8, String string9) {
+    public Values(String string1, String string2, String string3, SubValues subValues) {
         this.string1 = string1;
         this.string2 = string2;
         this.string3 = string3;
-        this.string4 = string4;
-        this.string5 = string5;
-        this.string6 = string6;
-        this.string7 = string7;
-        this.string8 = string8;
-        this.string9 = string9;
+        this.subValues = subValues;
+    }
+
+    public Values(String string1, String string2, SubValues subValues) {
+        this.string1 = string1;
+        this.string2 = string2;
+        this.subValues = subValues;
+    }
+
+    public SubValues getSubValues() {
+        return subValues;
+    }
+
+    public void setSubValues(SubValues subValues) {
+        this.subValues = subValues;
     }
 
     public Values(String string1, String string2, String string3) {
@@ -164,40 +171,4 @@ public class Values {
         this.string7 = string7;
     }
 
-    public String getString8() {
-        return string8;
-    }
-
-    public void setString8(String string8) {
-        this.string8 = string8;
-    }
-
-    public String getString9() {
-        return string9;
-    }
-
-    public void setString9(String string9) {
-        this.string9 = string9;
-    }
-
-    public String getString10() {
-        return string10;
-    }
-
-    public void setString10(String string10) {
-        this.string10 = string10;
-    }
-
-    public Values(String string1, String string2, String string3, String string4, String string5, String string6, String string7, String string8, String string9, String string10) {
-        this.string1 = string1;
-        this.string2 = string2;
-        this.string3 = string3;
-        this.string4 = string4;
-        this.string5 = string5;
-        this.string6 = string6;
-        this.string7 = string7;
-        this.string8 = string8;
-        this.string9 = string9;
-        this.string10 = string10;
-    }
 }
