@@ -16,6 +16,12 @@ import static utility.ImportProperties.*;
 
 public class DefectiveClasses {
 
+    private static final String STRINGFIXVERSION = "FixVersion";
+    private static final String STRINGCLASS = "Class";
+    private static final String STRINGOPENVERSION = "OpenVersion";
+    private static final String STRINGTICKET = "Ticket";
+
+
     public static void determineOV(int flag, String blameJiraIntersectionPath, String blameJiraIntersectionOVPath){
 
         try(FileReader fileReader = new FileReader(blameJiraIntersectionPath);
@@ -72,14 +78,10 @@ public class DefectiveClasses {
 
                     }
 
-                    if(flag == 0){
+                    if(flag == 0 && strings[5].equals(string[2])){
 
                         //converte la affectedVersion nel suo index
-                        if(strings[5].equals(string[2])){
-
-                            affectedVersionSupportString = string[0];
-
-                        }
+                        affectedVersionSupportString = string[0];
 
                     }
 
@@ -99,11 +101,11 @@ public class DefectiveClasses {
 
             if(flag == 0){
 
-                csvWriter.writeNext(new String[]{"Class", "Ticket", "Date", "Tree", "FixVersion", "AffectedVersion", "OpenVersion"});
+                csvWriter.writeNext(new String[]{STRINGCLASS, STRINGTICKET, "Date", "Tree", STRINGFIXVERSION, "AffectedVersion", STRINGOPENVERSION});
 
             }else{
 
-                csvWriter.writeNext(new String[]{"Class", "Ticket", "Date", "Tree", "FixVersion", "OpenVersion"});
+                csvWriter.writeNext(new String[]{STRINGCLASS, STRINGTICKET, "Date", "Tree", STRINGFIXVERSION, STRINGOPENVERSION});
 
             }
 
@@ -119,10 +121,10 @@ public class DefectiveClasses {
 
     public static double getProportion(){
 
-        double P = 0;
-        double IV;
-        double OV;
-        double FV;
+        double p = 0;
+        double iv;
+        double ov;
+        double fv;
 
         try(FileReader fileReader = new FileReader(blameJiraIntersectionOV); CSVReader csvReader = new CSVReader(fileReader)){
 
@@ -136,15 +138,15 @@ public class DefectiveClasses {
 
             for(String[] strings: versions){
 
-                FV = Double.parseDouble(strings[4]);
-                IV = Double.parseDouble(strings[5]);
-                OV = Double.parseDouble(strings[6]);
+                fv = Double.parseDouble(strings[4]);
+                iv = Double.parseDouble(strings[5]);
+                ov = Double.parseDouble(strings[6]);
 
-                P = P + ((FV - IV) / (FV - OV));
+                p = p + ((fv - iv) / (fv - ov));
 
             }
 
-            P = P /versions.size();
+            p = p /versions.size();
 
         }catch(IOException e){
 
@@ -152,16 +154,16 @@ public class DefectiveClasses {
 
         }
 
-        return P;
+        return p;
 
     }
 
     //La predictedIV va calcolata per quei ticket che non hanno affected version
     public static void calculatePredictedIV(Double P){
 
-        double PredictedIV;
-        double OV;
-        double FV;
+        double predictedIv;
+        double ov;
+        double fv;
 
         try(FileReader fileReader = new FileReader(blameJiraIntersectionOVFVOnly); CSVReader csvReader = new CSVReader(fileReader);
         FileWriter fileWriter = new FileWriter(predictedIVCSV); CSVWriter csvWriter = new CSVWriter(fileWriter)){
@@ -176,16 +178,16 @@ public class DefectiveClasses {
 
             for(String[] strings: versions){
 
-                FV = Double.parseDouble(strings[4]);
-                OV = Double.parseDouble(strings[5]);
+                fv = Double.parseDouble(strings[4]);
+                ov = Double.parseDouble(strings[5]);
 
-                PredictedIV = FV - (FV - OV) * P;
-                predictedIVList.add(new String[]{strings[0], strings[1], strings[2], strings[3], strings[4], strings[5], String.valueOf(PredictedIV)});
+                predictedIv = fv - (fv - ov) * P;
+                predictedIVList.add(new String[]{strings[0], strings[1], strings[2], strings[3], strings[4], strings[5], String.valueOf(predictedIv)});
 
             }
 
             //Scrivo l'header
-            csvWriter.writeNext(new String[]{"Class", "Ticket", "Date", "Tree", "FixVersion", "OpenVersion", "PredictedIV"});
+            csvWriter.writeNext(new String[]{STRINGCLASS, STRINGTICKET, "Date", "Tree", STRINGFIXVERSION, STRINGOPENVERSION, "PredictedIV"});
 
             csvWriter.writeAll(predictedIVList);
 
@@ -235,7 +237,7 @@ public class DefectiveClasses {
 
             }
 
-            csvWriter.writeNext(new String[]{"index", "VersionID", "VersionName", "AffectedVersion", "Class", "Ticket", "Bugginess"});
+            csvWriter.writeNext(new String[]{"index", "VersionID", "VersionName", "AffectedVersion", STRINGCLASS, STRINGTICKET, "Bugginess"});
 
             csvWriter.writeAll(dataList2);
             csvWriter.flush();
