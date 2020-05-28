@@ -15,6 +15,10 @@ import static utility.ImportProperties.*;
 
 public class JiraBlameCommitIntersection {
 
+    private static final String STRINGTICKET = "Ticket";
+    private static final String STRINGCLASS = "Class";
+
+
     /*
     * interseco il file contenente i blame con il file
     * contenente i commit tramite il tree di git,
@@ -22,11 +26,11 @@ public class JiraBlameCommitIntersection {
     */
     public static void blameCommit(){
 
-        try(FileReader commitReader = new FileReader(csvCommit);
+        try(FileReader commitReader = new FileReader(getCsvCommit());
             CSVReader csvReader = new CSVReader(commitReader);
-            FileReader blameReader = new FileReader(csvBlame);
+            FileReader blameReader = new FileReader(getCsvBlame());
             CSVReader csvReader1 = new CSVReader(blameReader);
-            FileWriter fileWriter = new FileWriter(blameCommitIntersection);
+            FileWriter fileWriter = new FileWriter(getBlameCommitIntersection());
             CSVWriter csvWriter = new CSVWriter(fileWriter)){
 
             List<String[]> listCommit =  csvReader.readAll();
@@ -67,7 +71,7 @@ public class JiraBlameCommitIntersection {
 
             }
 
-            csvWriter.writeNext(new String[]{"Class", "Ticket", "Date", "Tree"});
+            csvWriter.writeNext(new String[]{STRINGCLASS, STRINGTICKET, "Date", "Tree"});
 
             csvWriter.writeAll(listIntersection);
 
@@ -81,11 +85,11 @@ public class JiraBlameCommitIntersection {
 
     public static void blameJiraFVOnly(){
 
-        try(FileReader fileReader = new FileReader(blameCommitIntersection);
+        try(FileReader fileReader = new FileReader(getBlameCommitIntersection());
             CSVReader csvReader = new CSVReader(fileReader);
-            FileReader fileReader1 = new FileReader(versionsFVOnly);
+            FileReader fileReader1 = new FileReader(getVersionsFVOnly());
             CSVReader csvReader1 = new CSVReader(fileReader1);
-            FileWriter fileWriter = new FileWriter(blameJiraIntersectionFVOnly);
+            FileWriter fileWriter = new FileWriter(getBlameJiraIntersectionFVOnly());
             CSVWriter csvWriter = new CSVWriter(fileWriter)){
 
             //Salto l'header
@@ -109,7 +113,7 @@ public class JiraBlameCommitIntersection {
 
             }
 
-            csvWriter.writeNext(new String[]{"Class", "Ticket", "Date", "Tree", "FixVersion"});
+            csvWriter.writeNext(new String[]{STRINGCLASS, STRINGTICKET, "Date", "Tree", "FixVersion"});
 
             csvWriter.writeAll(listJiraBlame);
 
@@ -123,11 +127,11 @@ public class JiraBlameCommitIntersection {
 
     public static void blameJira(){
 
-        try(FileReader fileReader = new FileReader(blameCommitIntersection);
+        try(FileReader fileReader = new FileReader(getBlameCommitIntersection());
         CSVReader csvReader = new CSVReader(fileReader);
-        FileReader fileReader1 = new FileReader(versionsAV);
+        FileReader fileReader1 = new FileReader(getVersionsAV());
         CSVReader csvReader1 = new CSVReader(fileReader1);
-        FileWriter fileWriter = new FileWriter(blameJiraIntersection);
+        FileWriter fileWriter = new FileWriter(getBlameJiraIntersection());
         CSVWriter csvWriter = new CSVWriter(fileWriter)){
 
             csvReader.readNext();
@@ -150,7 +154,7 @@ public class JiraBlameCommitIntersection {
 
             }
 
-            csvWriter.writeNext(new String[]{"Class", "Ticket", "Date", "Tree", "FixVersion", "AffectedVersion"});
+            csvWriter.writeNext(new String[]{STRINGCLASS, STRINGTICKET, "Date", "Tree", "FixVersion", "AffectedVersion"});
 
             csvWriter.writeAll(listJiraBlame);
 

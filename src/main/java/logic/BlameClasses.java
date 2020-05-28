@@ -21,20 +21,20 @@ public class BlameClasses {
 
     public static void executeBlame(){
 
-        try(FileReader fileReader = new FileReader(csvClassPath);
+        try(FileReader fileReader = new FileReader(getCsvClassPath());
             CSVReader csvReader = new CSVReader(fileReader);
-            FileWriter fileWriter = new FileWriter(csvBlame);
+            FileWriter fileWriter = new FileWriter(getCsvBlame());
             CSVWriter csvWriter = new CSVWriter(fileWriter)){
 
             List<String[]> list = csvReader.readAll();
             List<String[]> list1 = new ArrayList<>();
 
-            FileRepository fileRepository = new FileRepository(cPath);
+            FileRepository fileRepository = new FileRepository(getcPath());
             Git git = new Git(fileRepository);
 
             for(String[] string: list){
 
-                String key = string[0].replace(stringToReplace, "");
+                String key = string[0].replace(getStringToReplace(), "");
 
                 BlameCommand command = git.blame().setStartCommit(git.getRepository().resolve("HEAD")).setFilePath(key);
 

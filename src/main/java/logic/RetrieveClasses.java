@@ -22,7 +22,7 @@ public class RetrieveClasses {
     //Clona la repository in locale
     public static void cloneRepository() throws GitAPIException {
 
-        File dir = new File(path);
+        File dir = new File(getPath());
 
         if (!dir.exists()) {
 
@@ -30,7 +30,7 @@ public class RetrieveClasses {
 
             if (dir.mkdir()) {
 
-                Git.cloneRepository().setURI(urlProject).setDirectory(dir).call();
+                Git.cloneRepository().setURI(getUrlProject()).setDirectory(dir).call();
                 logger.info("Successful");
 
             } else {
@@ -46,8 +46,8 @@ public class RetrieveClasses {
     //Crea un file csv con il percorso di tutti i file .java
     public static void createCsvClass(){
 
-        try(Stream<Path> walk = Files.walk(Paths.get(path));
-             FileWriter fileWriter = new FileWriter(csvClassPath);
+        try(Stream<Path> walk = Files.walk(Paths.get(getPath()));
+             FileWriter fileWriter = new FileWriter(getCsvClassPath());
              CSVWriter csvWriter = new CSVWriter(fileWriter)) {
 
             List<String> result = walk.map(Path::toString).filter(f -> f.endsWith(".java")).collect(Collectors.toList());

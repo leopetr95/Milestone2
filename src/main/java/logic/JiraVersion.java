@@ -14,6 +14,8 @@ import static utility.ImportProperties.*;
 
 public class JiraVersion {
 
+    private static final String FIELDS = "fields";
+
     public static void retrieveTicketOnlyFVFromJira(String projName) throws IOException {
 
         List<String[]> list = new ArrayList<>();
@@ -41,7 +43,7 @@ public class JiraVersion {
              * Questi ulteriri array JSON sono stati necessari per accedere alle sottoliste presenti all'interno
              * di issues, cioè filed, che contiene sia FixVersions che version per determinare AV e FV.
              */
-            JSONArray FixedVersions = issues.getJSONObject(i).getJSONObject("fields").getJSONArray("fixVersions");
+            JSONArray fixedVersions = issues.getJSONObject(i).getJSONObject(FIELDS).getJSONArray("fixVersions");
 
             String fixVersion = "";
 
@@ -51,17 +53,17 @@ public class JiraVersion {
              * counter.
              */
 
-            for (j = 0; j < FixedVersions.length(); j++) {
+            for (j = 0; j < fixedVersions.length(); j++) {
 
                 counter++;
-                fixVersion = FixedVersions.getJSONObject(j).get("name").toString();
+                fixVersion = fixedVersions.getJSONObject(j).get("name").toString();
                 list.add(new String[]{counter.toString(), ticket, fixVersion});
 
             }
 
         }
 
-        try (FileWriter fileWriter = new FileWriter(versionsFVOnly); CSVWriter csvWriter = new CSVWriter(fileWriter)) {
+        try (FileWriter fileWriter = new FileWriter(getVersionsFVOnly()); CSVWriter csvWriter = new CSVWriter(fileWriter)) {
 
             csvWriter.writeAll(list);
 
@@ -99,15 +101,15 @@ public class JiraVersion {
              * Questi ulteriri array JSON sono stati necessari per accedere alle sottoliste presenti all'interno
              * di issues, cioè filed, che contiene sia FixVersions che version per determinare AV e FV.
              */
-            JSONArray FixedVersions = issues.getJSONObject(i).getJSONObject("fields").getJSONArray("fixVersions");
-            JSONArray AffectedVersions = issues.getJSONObject(i).getJSONObject("fields").getJSONArray("versions");
+            JSONArray fixedVersions = issues.getJSONObject(i).getJSONObject(FIELDS).getJSONArray("fixVersions");
+            JSONArray affectedVersions = issues.getJSONObject(i).getJSONObject(FIELDS).getJSONArray("versions");
 
             String fixVersion = "";
             String affectedVersion = "";
 
 
             //prendo la prima perchè la più vecchia
-            affectedVersion = AffectedVersions.getJSONObject(0).get("name").toString();
+            affectedVersion = affectedVersions.getJSONObject(0).get("name").toString();
 
             /**
              * Il ciclo è necessario in quanto alcuni ticket possiedono molteplici fixed-version. In questo
@@ -115,17 +117,17 @@ public class JiraVersion {
              * counter.
              */
 
-            for (j = 0; j < FixedVersions.length(); j++) {
+            for (j = 0; j < fixedVersions.length(); j++) {
 
                 counter++;
-                fixVersion = FixedVersions.getJSONObject(j).get("name").toString();
+                fixVersion = fixedVersions.getJSONObject(j).get("name").toString();
                 list.add(new String[]{counter.toString(), ticket, fixVersion, affectedVersion});
 
             }
 
         }
 
-        try (FileWriter fileWriter = new FileWriter(versionsAV); CSVWriter csvWriter = new CSVWriter(fileWriter)) {
+        try (FileWriter fileWriter = new FileWriter(getVersionsAV()); CSVWriter csvWriter = new CSVWriter(fileWriter)) {
 
             csvWriter.writeAll(list);
 

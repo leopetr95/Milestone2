@@ -15,7 +15,6 @@ import java.util.Comparator;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import org.eclipse.jgit.internal.storage.file.FileRepository;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONArray;

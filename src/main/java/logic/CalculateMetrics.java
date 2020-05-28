@@ -20,6 +20,7 @@ import org.eclipse.jgit.util.io.DisabledOutputStream;
 import org.joda.time.DateTime;
 import org.joda.time.Weeks;
 import utility.DateUtil;
+import utility.ImportProperties;
 
 import java.io.*;
 import java.text.ParseException;
@@ -50,8 +51,8 @@ public class CalculateMetrics {
     * */
     private static void retrieveMaxAndAverageChgSetSize() throws IOException {
 
-        try(FileReader fileReader = new FileReader(chgSetSize); CSVReader csvReader = new CSVReader(fileReader);
-        FileWriter fileWriter = new FileWriter(maxAvgChgSetSize); CSVWriter csvWriter = new CSVWriter(fileWriter)) {
+        try(FileReader fileReader = new FileReader(getChgSetSize()); CSVReader csvReader = new CSVReader(fileReader);
+        FileWriter fileWriter = new FileWriter(getMaxAvgChgSetSize()); CSVWriter csvWriter = new CSVWriter(fileWriter)) {
 
             csvReader.readNext();
 
@@ -132,15 +133,15 @@ public class CalculateMetrics {
 
         final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-        Git git = new Git(new FileRepository(cPath));
+        Git git = new Git(new FileRepository(getcPath()));
         Repository repository = git.getRepository();
 
-        try(FileReader fileReader = new FileReader(blameCommitIntersection);
-        CSVReader csvReader = new CSVReader(fileReader);
-        FileReader fileReader1 = new FileReader(versionInfo);
-        CSVReader csvReader1 = new CSVReader(fileReader1);
-        FileWriter fileWriter = new FileWriter(outLoc);
-        CSVWriter csvWriter = new CSVWriter(fileWriter)){
+        try(FileReader fileReader = new FileReader(getBlameCommitIntersection());
+            CSVReader csvReader = new CSVReader(fileReader);
+            FileReader fileReader1 = new FileReader(ImportProperties.getVersionInfo());
+            CSVReader csvReader1 = new CSVReader(fileReader1);
+            FileWriter fileWriter = new FileWriter(getOutLoc());
+            CSVWriter csvWriter = new CSVWriter(fileWriter)){
 
             csvReader1.readNext();
 
@@ -208,9 +209,9 @@ public class CalculateMetrics {
     * */
     private static void retrieveLOCFromTreesWithIndexAndSum(){
 
-        try(FileReader fileReader = new FileReader(outLoc);CSVReader csvReader = new CSVReader(fileReader);
-            FileReader fileReader1 = new FileReader(versionInfo); CSVReader csvReader1 = new CSVReader(fileReader1);
-            FileWriter fileWriter = new FileWriter(outLocIndex); CSVWriter csvWriter = new CSVWriter(fileWriter)
+        try(FileReader fileReader = new FileReader(getOutLoc());CSVReader csvReader = new CSVReader(fileReader);
+            FileReader fileReader1 = new FileReader(ImportProperties.getVersionInfo()); CSVReader csvReader1 = new CSVReader(fileReader1);
+            FileWriter fileWriter = new FileWriter(getOutLocIndex()); CSVWriter csvWriter = new CSVWriter(fileWriter)
         ){
 
             List<String[]> outL = csvReader.readAll();
@@ -269,8 +270,8 @@ public class CalculateMetrics {
     * */
     private static void retrieveMaxAndAverageLoc(){
 
-        try(FileReader fileReader = new FileReader(outLocIndex); CSVReader csvReader = new CSVReader(fileReader);
-            FileWriter fileWriter = new FileWriter(maxAverage); CSVWriter csvWriter = new CSVWriter(fileWriter)
+        try(FileReader fileReader = new FileReader(getOutLocIndex()); CSVReader csvReader = new CSVReader(fileReader);
+            FileWriter fileWriter = new FileWriter(getMaxAverage()); CSVWriter csvWriter = new CSVWriter(fileWriter)
 
         ){
 
@@ -353,9 +354,9 @@ public class CalculateMetrics {
     * */
     private static void calculateChgSetSize(){
 
-        try(FileReader fileReader = new FileReader(blameCommitIntersection); CSVReader csvReader = new CSVReader(fileReader);
-        FileReader fileReader1 = new FileReader(versionInfo); CSVReader csvReader1 = new CSVReader(fileReader1);
-        FileWriter fileWriter = new FileWriter(chgSetSize); CSVWriter csvWriter = new CSVWriter(fileWriter)) {
+        try(FileReader fileReader = new FileReader(getBlameCommitIntersection()); CSVReader csvReader = new CSVReader(fileReader);
+        FileReader fileReader1 = new FileReader(ImportProperties.getVersionInfo()); CSVReader csvReader1 = new CSVReader(fileReader1);
+        FileWriter fileWriter = new FileWriter(getChgSetSize()); CSVWriter csvWriter = new CSVWriter(fileWriter)) {
 
             csvReader.readNext();
             csvReader1.readNext();
@@ -434,7 +435,7 @@ public class CalculateMetrics {
     * */
     private static void calculateSizeAgeAuthors() throws IOException {
 
-        Git git = new Git(new FileRepository(cPath));
+        Git git = new Git(new FileRepository(getcPath()));
 
         Date commitTime;
         Date verTime;
@@ -443,9 +444,9 @@ public class CalculateMetrics {
         final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
 
-        try(FileReader fileReader = new FileReader(csvClassPath);CSVReader csvReader = new CSVReader(fileReader);
-        FileReader fileReader1 = new FileReader(versionInfo); CSVReader csvReader1 = new CSVReader(fileReader1);
-        FileWriter fileWriter = new FileWriter(sizeMetric); CSVWriter csvWriter = new CSVWriter(fileWriter)){
+        try(FileReader fileReader = new FileReader(getCsvClassPath());CSVReader csvReader = new CSVReader(fileReader);
+        FileReader fileReader1 = new FileReader(ImportProperties.getVersionInfo()); CSVReader csvReader1 = new CSVReader(fileReader1);
+        FileWriter fileWriter = new FileWriter(getSizeMetric()); CSVWriter csvWriter = new CSVWriter(fileWriter)){
 
             List<String[]> classes = csvReader.readAll();
             //Salto l'header
@@ -464,7 +465,7 @@ public class CalculateMetrics {
                     List<String> authors = new ArrayList<>();
                     int numberOfAuthors;
 
-                    String key = strings1[0].replace(stringToReplace, "");
+                    String key = strings1[0].replace(getStringToReplace(), "");
 
                     BlameCommand blameCommand = git.blame().setStartCommit(git.getRepository().resolve("HEAD")).setFilePath(key);
 
@@ -517,19 +518,19 @@ public class CalculateMetrics {
     * */
     private static void createFinalCSV(){
 
-        try(FileReader fileReader = new FileReader(chgSetSize);
+        try(FileReader fileReader = new FileReader(getChgSetSize());
             CSVReader csvReader = new CSVReader(fileReader);
-            FileReader fileReader1 = new FileReader(maxAverage);
+            FileReader fileReader1 = new FileReader(getMaxAverage());
             CSVReader csvReader1 = new CSVReader(fileReader1);
-            FileReader fileReader2 = new FileReader(maxAvgChgSetSize);
+            FileReader fileReader2 = new FileReader(getMaxAvgChgSetSize());
             CSVReader csvReader2 = new CSVReader(fileReader2);
-            FileReader fileReader3 = new FileReader(outLocIndex);
+            FileReader fileReader3 = new FileReader(getOutLocIndex());
             CSVReader csvReader3 = new CSVReader(fileReader3);
-            FileReader fileReader4 = new FileReader(preFinalCsv);
+            FileReader fileReader4 = new FileReader(getPreFinalCsv());
             CSVReader csvReader4 = new CSVReader(fileReader4);
-            FileReader fileReader5 = new FileReader(sizeMetric);
+            FileReader fileReader5 = new FileReader(getSizeMetric());
             CSVReader csvReader5 = new CSVReader(fileReader5);
-            FileWriter fileWriter = new FileWriter(finalCSV);
+            FileWriter fileWriter = new FileWriter(getFinalCSV());
             CSVWriter csvWriter = new CSVWriter(fileWriter)){
 
             //Salto gli header
@@ -670,9 +671,9 @@ public class CalculateMetrics {
         blameJiraFVOnly();
         getDefective();
         //ticket with Affected Version
-        determineOV(0, blameJiraIntersection, blameJiraIntersectionOV);
+        determineOV(0, getBlameJiraIntersection(), getBlameJiraIntersectionOV());
         //ticket without Affected Version
-        determineOV(1, blameJiraIntersectionFVOnly, blameJiraIntersectionOVFVOnly);
+        determineOV(1, getBlameJiraIntersectionFVOnly(), getBlameJiraIntersectionOVFVOnly());
         double p = getProportion();
         calculatePredictedIV(p);
         sumBuggyPredicted();
@@ -704,9 +705,9 @@ public class CalculateMetrics {
         blameJiraFVOnly();
         getDefective();
         //ticket with Affected Version
-        determineOV(0, blameJiraIntersection, blameJiraIntersectionOV);
+        determineOV(0, getBlameJiraIntersection(), getBlameJiraIntersectionOV());
         //ticket without Affected Version
-        determineOV(1, blameJiraIntersectionFVOnly, blameJiraIntersectionOVFVOnly);
+        determineOV(1, getBlameJiraIntersectionFVOnly(), getBlameJiraIntersectionOVFVOnly());
         double p1 = getProportion();
         calculatePredictedIV(p1);
         sumBuggyPredicted();

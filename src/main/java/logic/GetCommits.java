@@ -21,13 +21,15 @@ import static logic.RetrieveClasses.logger;
 
 public class GetCommits {
 
+    private static final String PROJECT1 = "BOOKKEEPER";
+
     public static void writeCommit(String projName){
 
-        try(FileWriter fileWriter = new FileWriter(csvCommit); CSVWriter csvWriter = new CSVWriter(fileWriter)){
+        try(FileWriter fileWriter = new FileWriter(getCsvCommit()); CSVWriter csvWriter = new CSVWriter(fileWriter)){
 
-            Git git = Git.open(new File(completePath));
+            Git git = Git.open(new File(getCompletePath()));
 
-            Repository repository = FileRepositoryBuilder.create(new File(completePath));
+            Repository repository = FileRepositoryBuilder.create(new File(getCompletePath()));
             String repo = String.valueOf(repository);
 
             logger.info(repo);
@@ -55,34 +57,28 @@ public class GetCommits {
 
                 String shortMessage;
 
-                if(projName.equals("BOOKKEEPER")){
+                if(projName.equals(PROJECT1) && fullMessage.length() > 14){
 
-                    if (fullMessage.length() > 14) {
+                    if (fullMessage.substring(0, 11).contains("BOOKKEEPER-")) {
 
-                        if (fullMessage.substring(0, 11).contains("BOOKKEEPER-")) {
+                        shortMessage = fullMessage.substring(0, fullMessage.indexOf(" ") - 1);
 
-                            shortMessage = fullMessage.substring(0, fullMessage.indexOf(" ") - 1);
-
-                            dataList.add(new String[]{date, tree, shortMessage});
-
-                        }
-
-                        //Includo il caso con errore di battitura
-                        if (fullMessage.substring(0, 10).contains("BOOKEEPER-")) {
-
-                            shortMessage = fullMessage.substring(0, fullMessage.indexOf(" ") - 1);
-
-                            shortMessage = shortMessage.replace("BOOKEEPER", "BOOKKEEPER");
-
-                            dataList.add(new String[]{date, tree, shortMessage});
-
-                        }
+                        dataList.add(new String[]{date, tree, shortMessage});
 
                     }
 
-                }else if(projName.equals("ZOOKEEPER")) {
+                        //Includo il caso con errore di battitura
+                    if(fullMessage.substring(0, 10).contains("BOOKEEPER-")) {
 
-                    if (fullMessage.length() > 14) {
+                        shortMessage = fullMessage.substring(0, fullMessage.indexOf(" ") - 1);
+
+                        shortMessage = shortMessage.replace("BOOKEEPER", PROJECT1);
+
+                        dataList.add(new String[]{date, tree, shortMessage});
+
+                    }
+
+                }else if(projName.equals("ZOOKEEPER") && fullMessage.length() > 14) {
 
                         if (fullMessage.substring(0, 10).contains("ZOOKEEPER-")) {
 
@@ -101,8 +97,6 @@ public class GetCommits {
                             dataList.add(new String[]{date, tree, shortMessage});
 
                         }
-
-                    }
 
                 }
 

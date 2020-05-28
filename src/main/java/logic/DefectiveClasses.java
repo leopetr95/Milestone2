@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import static utility.ImportProperties.*;
+import static utility.ImportProperties.getBlameJiraIntersectionOVFVOnly;
 
 
 public class DefectiveClasses {
@@ -26,7 +27,7 @@ public class DefectiveClasses {
 
         try(FileReader fileReader = new FileReader(blameJiraIntersectionPath);
             CSVReader csvReader = new CSVReader(fileReader);
-            FileReader fileReader1 = new FileReader(versionInfo);
+            FileReader fileReader1 = new FileReader(getVersionInfo());
             CSVReader csvReader1 = new CSVReader(fileReader1);
             FileWriter fileWriter = new FileWriter(blameJiraIntersectionOVPath);
             CSVWriter csvWriter = new CSVWriter(fileWriter)){
@@ -126,7 +127,7 @@ public class DefectiveClasses {
         double ov;
         double fv;
 
-        try(FileReader fileReader = new FileReader(blameJiraIntersectionOV); CSVReader csvReader = new CSVReader(fileReader)){
+        try(FileReader fileReader = new FileReader(getBlameJiraIntersectionOV()); CSVReader csvReader = new CSVReader(fileReader)){
 
             //salto l'header
             csvReader.readNext();
@@ -159,14 +160,13 @@ public class DefectiveClasses {
     }
 
     //La predictedIV va calcolata per quei ticket che non hanno affected version
-    public static void calculatePredictedIV(Double P){
+    public static void calculatePredictedIV(Double p){
 
         double predictedIv;
         double ov;
         double fv;
-
-        try(FileReader fileReader = new FileReader(blameJiraIntersectionOVFVOnly); CSVReader csvReader = new CSVReader(fileReader);
-        FileWriter fileWriter = new FileWriter(predictedIVCSV); CSVWriter csvWriter = new CSVWriter(fileWriter)){
+        try(FileReader fileReader = new FileReader(getBlameJiraIntersectionOVFVOnly()); CSVReader csvReader = new CSVReader(fileReader);
+        FileWriter fileWriter = new FileWriter(getPredictedIVCSV()); CSVWriter csvWriter = new CSVWriter(fileWriter)){
 
             //Salto l'header
             csvReader.readNext();
@@ -181,7 +181,7 @@ public class DefectiveClasses {
                 fv = Double.parseDouble(strings[4]);
                 ov = Double.parseDouble(strings[5]);
 
-                predictedIv = fv - (fv - ov) * P;
+                predictedIv = fv - (fv - ov) * p;
                 predictedIVList.add(new String[]{strings[0], strings[1], strings[2], strings[3], strings[4], strings[5], String.valueOf(predictedIv)});
 
             }
@@ -203,9 +203,9 @@ public class DefectiveClasses {
     //Scrivo in un file csv le classi difettive
     public static void getDefective(){
 
-        try(FileReader fileReader = new FileReader(blameJiraIntersection); CSVReader csvReader = new CSVReader(fileReader);
-        FileReader fileReader1 = new FileReader(versionInfo); CSVReader csvReader1 = new CSVReader(fileReader1);
-        FileWriter fileWriter = new FileWriter(buggy); CSVWriter csvWriter = new CSVWriter(fileWriter)){
+        try(FileReader fileReader = new FileReader(getBlameJiraIntersection()); CSVReader csvReader = new CSVReader(fileReader);
+        FileReader fileReader1 = new FileReader(getVersionInfo()); CSVReader csvReader1 = new CSVReader(fileReader1);
+        FileWriter fileWriter = new FileWriter(getBuggy()); CSVWriter csvWriter = new CSVWriter(fileWriter)){
 
             csvReader1.readNext();
 
@@ -254,9 +254,9 @@ public class DefectiveClasses {
     public static void sumBuggyPredicted(){
 
         try(
-        FileReader fileReader = new FileReader(buggy); CSVReader csvReader = new CSVReader(fileReader);
-        FileReader fileReader1 = new FileReader(predictedIVCSV); CSVReader csvReader1 = new CSVReader(fileReader1);
-        FileWriter fileWriter = new FileWriter(sumBuggyPredicted); CSVWriter csvWriter = new CSVWriter(fileWriter)) {
+        FileReader fileReader = new FileReader(getBuggy()); CSVReader csvReader = new CSVReader(fileReader);
+        FileReader fileReader1 = new FileReader(getPredictedIVCSV()); CSVReader csvReader1 = new CSVReader(fileReader1);
+        FileWriter fileWriter = new FileWriter(getSumBuggyPredicted()); CSVWriter csvWriter = new CSVWriter(fileWriter)) {
 
             //Salto gli header
             csvReader.readNext();
@@ -293,10 +293,10 @@ public class DefectiveClasses {
 
     public static void createPrefinalCSV(){
 
-        try(FileReader fileReader = new FileReader(sumBuggyPredicted); CSVReader csvReader = new CSVReader(fileReader);
-        FileReader fileReader1 = new FileReader(csvClassPath); CSVReader csvReader1 = new CSVReader(fileReader1);
-        FileReader fileReader2 = new FileReader(versionInfo); CSVReader csvReader2 = new CSVReader(fileReader2);
-        FileWriter fileWriter = new FileWriter(preFinalCsv); CSVWriter csvWriter = new CSVWriter(fileWriter)){
+        try(FileReader fileReader = new FileReader(getSumBuggyPredicted()); CSVReader csvReader = new CSVReader(fileReader);
+        FileReader fileReader1 = new FileReader(getCsvClassPath()); CSVReader csvReader1 = new CSVReader(fileReader1);
+        FileReader fileReader2 = new FileReader(getVersionInfo()); CSVReader csvReader2 = new CSVReader(fileReader2);
+        FileWriter fileWriter = new FileWriter(getPreFinalCsv()); CSVWriter csvWriter = new CSVWriter(fileWriter)){
 
             //Salto gli header
             csvReader.readNext();
@@ -333,7 +333,6 @@ public class DefectiveClasses {
                             if(!finalmap.containsKey(keys)){
 
                                 finalmap.put(keys, "NO");
-                                //finalList.add(new String[]{String.valueOf(i), strings1[1],"NO"});
 
                             }
 
@@ -350,14 +349,9 @@ public class DefectiveClasses {
 
                             Keys keys = new Keys(String.valueOf(i), strings1[1]);
 
-                            if(!finalmap.containsKey(keys)) {
+                            if(!finalmap.containsKey(keys) && i != tempInt) {
 
-                                if (i != tempInt) {
-
-                                    finalmap.put(keys, "NO");
-                                    //finalList.add(new String[]{String.valueOf(i), strings[1], "NO"});
-
-                                }
+                                finalmap.put(keys, "NO");
 
                             }
 
@@ -393,11 +387,12 @@ public class DefectiveClasses {
 
         getDefective();
         //ticket con Affected Version
-        determineOV(0, blameJiraIntersection, blameJiraIntersectionOV);
+
+        determineOV(0, getBlameJiraIntersection(), getBlameJiraIntersectionOV());
         //ticket senza Affected Version
-        determineOV(1, blameJiraIntersectionFVOnly, blameJiraIntersectionOVFVOnly);
-        double P = getProportion();
-        calculatePredictedIV(P);
+        determineOV(1, getBlameJiraIntersectionFVOnly(), getBlameJiraIntersectionOVFVOnly());
+        double p = getProportion();
+        calculatePredictedIV(p);
         sumBuggyPredicted();
         createPrefinalCSV();
 
