@@ -135,12 +135,5 @@ public class JiraVersion {
 
     }
 
-    public static void main(String[]args) throws IOException {
-
-        importProp("BOOKKEEPER");
-        retrieveTicketAvFVFromJira("BOOKKEEPER");
-        retrieveTicketOnlyFVFromJira("BOOKKEEPER");
-
-    }
 
 }

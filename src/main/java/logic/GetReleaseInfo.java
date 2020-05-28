@@ -8,6 +8,7 @@ import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.io.FileWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Collections;
@@ -89,7 +90,6 @@ public class GetReleaseInfo {
         try(FileWriter fileWriter = new FileWriter(outname)) {
 
             //Name of CSV for output
-            //fileWriter = new FileWriter(outname);
             fileWriter.append("Index,Version ID,Version Name,Date");
             fileWriter.append("\n");
 
@@ -111,12 +111,10 @@ public class GetReleaseInfo {
 
         } catch (Exception e) {
 
-            System.out.println("Error in csv writer");
             e.printStackTrace();
 
         }
 
-        return;
 
     }
 
@@ -136,26 +134,16 @@ public class GetReleaseInfo {
         releaseNames.put(dateTime, name);
         releaseID.put(dateTime, id);
 
-        return;
-
     }
 
 
-    public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
+    public static JSONObject readJsonFromUrl(String url) throws IOException {
 
-        InputStream is = new URL(url).openStream();
+        try (InputStream is = new URL(url).openStream(); BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
 
-        try{
-
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
             String jsonText = readAll(rd);
-            JSONObject json = new JSONObject(jsonText);
 
-            return json;
-
-        } finally {
-
-            is.close();
+            return new JSONObject(jsonText);
 
         }
     }
@@ -180,6 +168,5 @@ public class GetReleaseInfo {
         getVersionInfo("BOOKKEEPER");
 
     }
-
 
 }
