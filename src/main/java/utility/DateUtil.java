@@ -1,10 +1,8 @@
 package utility;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -25,7 +23,6 @@ public class DateUtil{
 
         }
 
-        //System.out.println(result);
         return result;
 
     }
