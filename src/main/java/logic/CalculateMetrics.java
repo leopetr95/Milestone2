@@ -556,8 +556,6 @@ public class CalculateMetrics {
             List<String[]> listOutLocIndex = csvReader3.readAll();
             List<String[]> listSizeMetric = csvReader5.readAll();
 
-
-
             //Index, Class, Size, Age, NumberOfAuthors, Sum, MaxChg, AvgChg, MaxLoc, AvgLoc, ChgSetSize
 
             for(String[] stringSizeMetric: listSizeMetric){

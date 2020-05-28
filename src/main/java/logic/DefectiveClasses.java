@@ -91,22 +91,11 @@ public class DefectiveClasses {
                 if(flag == 0){
 
                     jiraOV.add(new String[]{strings[0], strings[1], strings[2], strings[3], fixVersionSupportString, affectedVersionSupportString, realResult});
-
-                }else{
-
-                    jiraOV.add(new String[]{strings[0], strings[1], strings[2], strings[3], fixVersionSupportString, realResult});
+                    break;
 
                 }
 
-            }
-
-            if(flag == 0){
-
-                csvWriter.writeNext(new String[]{STRINGCLASS, STRINGTICKET, "Date", "Tree", STRINGFIXVERSION, "AffectedVersion", STRINGOPENVERSION});
-
-            }else{
-
-                csvWriter.writeNext(new String[]{STRINGCLASS, STRINGTICKET, "Date", "Tree", STRINGFIXVERSION, STRINGOPENVERSION});
+                jiraOV.add(new String[]{strings[0], strings[1], strings[2], strings[3], fixVersionSupportString, realResult});
 
             }
 
