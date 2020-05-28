@@ -528,8 +528,9 @@ public class CalculateMetrics {
     /*
     * Compute final csv with all metrics
     * */
-    private static void createFinalCSV(){
+    private static Map<Keys, Values> createFinalCSV(){
 
+        Map<Keys, Values> map = new HashMap<>();
         try(FileReader fileReader = new FileReader(getChgSetSize());
             CSVReader csvReader = new CSVReader(fileReader);
             FileReader fileReader1 = new FileReader(getMaxAverage());
@@ -542,8 +543,7 @@ public class CalculateMetrics {
             CSVReader csvReader4 = new CSVReader(fileReader4);
             FileReader fileReader5 = new FileReader(getSizeMetric());
             CSVReader csvReader5 = new CSVReader(fileReader5);
-            FileWriter fileWriter = new FileWriter(getFinalCSV());
-            CSVWriter csvWriter = new CSVWriter(fileWriter)){
+            ){
 
             //Salto gli header
             csvReader.readNext();
@@ -561,7 +561,6 @@ public class CalculateMetrics {
 
 
             //Index, Class, Size, Age, NumberOfAuthors, Sum, MaxChg, AvgChg, MaxLoc, AvgLoc, ChgSetSize
-            Map<Keys, Values> map = new HashMap<>();
 
             List<String[]> finalList = new ArrayList<>();
 
@@ -651,37 +650,51 @@ public class CalculateMetrics {
                     SubValues subValues = new SubValues(map.get(keys).getSubValues().getString2(), map.get(keys).getSubValues().getString3(), map.get(keys).getSubValues().getString4(), map.get(keys).getSubValues().getString5(), map.get(keys).getSubValues().getString6(), map.get(keys).getSubValues().getString7(), stringPreFinal[2]);
                     Values values = new Values(map.get(keys).getString1(), map.get(keys).getString2(), map.get(keys).getSubValues().getString1(), subValues);
 
-                    System.out.println(map.get(keys).getString2());
                     map.replace(keys, values);
 
                 }
 
             }
 
-           for(Map.Entry<Keys, Values> entry: map.entrySet()){
 
-               if(entry.getValue().getSubValues().getString7()!= null){
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-                   finalList.add(new String[]{
-                           entry.getKey().getKey1().toString(),
-                           entry.getKey().getKey2().toString(),
-                           entry.getValue().getString1(),
-                           entry.getValue().getString2(),
-                           entry.getValue().getString3(),
-                           entry.getValue().getSubValues().getString1(),
-                           entry.getValue().getSubValues().getString2(),
-                           entry.getValue().getSubValues().getString3(),
-                           entry.getValue().getSubValues().getString4(),
-                           entry.getValue().getSubValues().getString5(),
-                           entry.getValue().getSubValues().getString6(),
-                           entry.getValue().getSubValues().getString7()});
+        return map;
 
-               }
+    }
+
+    public static void writeFinal(Map<Keys, Values> map){
+
+        try(FileWriter fileWriter = new FileWriter(getFinalCSV());
+            CSVWriter csvWriter = new CSVWriter(fileWriter)) {
+
+            List<String[]> finalList = new ArrayList<>();
+
+
+            for(Map.Entry<Keys, Values> entry: map.entrySet()){
+
+                if(entry.getValue().getSubValues().getString7()!= null){
+
+                    finalList.add(new String[]{
+                            entry.getKey().getKey1().toString(),
+                            entry.getKey().getKey2().toString(),
+                            entry.getValue().getString1(),
+                            entry.getValue().getString2(),
+                            entry.getValue().getString3(),
+                            entry.getValue().getSubValues().getString1(),
+                            entry.getValue().getSubValues().getString2(),
+                            entry.getValue().getSubValues().getString3(),
+                            entry.getValue().getSubValues().getString4(),
+                            entry.getValue().getSubValues().getString5(),
+                            entry.getValue().getSubValues().getString6(),
+                            entry.getValue().getSubValues().getString7()});
+
+                }
 
             }
-
             //Index, Class, Size, Age, NumberOfAuthors, Sum, MaxChg, AvgChg, MaxLoc, AvgLoc, ChgSetSize
-
             csvWriter.writeNext(new String[]{INDEX, STRINGCLASS, "Size", "Age", "NumberOfAuthors", "Sum", "MaxChg", "AvgChg", "MaxLoc", "AvgLoc", "ChgSetSize", "Bugginess"});
             csvWriter.writeAll(finalList);
 
@@ -723,7 +736,7 @@ public class CalculateMetrics {
         calculateSizeAgeAuthors();
         calculateChgSetSize();
         retrieveMaxAndAverageChgSetSize();
-        createFinalCSV();
+        writeFinal(createFinalCSV());
 
 
 
@@ -757,7 +770,7 @@ public class CalculateMetrics {
         calculateSizeAgeAuthors();
         calculateChgSetSize();
         retrieveMaxAndAverageChgSetSize();
-        createFinalCSV();
+        writeFinal(createFinalCSV());
 
     }
 

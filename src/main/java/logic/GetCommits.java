@@ -57,26 +57,11 @@ public class GetCommits {
 
                 String shortMessage;
 
-                if(projName.equals(PROJECT1) && fullMessage.length() > 14){
+                if((projName.equals(PROJECT1)) && (fullMessage.length() > 14) && (fullMessage.substring(0, 11).contains("BOOKKEEPER-"))){
 
-                    if (fullMessage.substring(0, 11).contains("BOOKKEEPER-")) {
+                    shortMessage = fullMessage.substring(0, fullMessage.indexOf(" ") - 1);
 
-                        shortMessage = fullMessage.substring(0, fullMessage.indexOf(" ") - 1);
-
-                        dataList.add(new String[]{date, tree, shortMessage});
-
-                    }
-
-                        //Includo il caso con errore di battitura
-                    if(fullMessage.substring(0, 10).contains("BOOKEEPER-")) {
-
-                        shortMessage = fullMessage.substring(0, fullMessage.indexOf(" ") - 1);
-
-                        shortMessage = shortMessage.replace("BOOKEEPER", PROJECT1);
-
-                        dataList.add(new String[]{date, tree, shortMessage});
-
-                    }
+                    dataList.add(new String[]{date, tree, shortMessage});
 
                 }else if((projName.equals("ZOOKEEPER")) && (fullMessage.length() > 14) && (fullMessage.substring(0, 10).contains("ZOOKEEPER-"))) {
 
