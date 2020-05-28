@@ -7,6 +7,19 @@ import java.util.Properties;
 
 public class ImportProperties {
 
+    private ImportProperties(){
+    }
+
+    public static String getStringadiprova() {
+        return stringadiprova;
+    }
+
+    public static void setStringadiprova(String stringadiprova) {
+        ImportProperties.stringadiprova = stringadiprova;
+    }
+
+    private static String stringadiprova = "";
+
     public static String csvClassPath = "";
     public static String cPath = "";
     public static String csvBlame = "";
@@ -81,6 +94,7 @@ public class ImportProperties {
                 chgSetSize = properties.getProperty("chgSetSize");
                 maxAvgChgSetSize = properties.getProperty("maxAvgChgSetSize");
                 finalCSV = properties.getProperty("finalCSV");
+                stringadiprova = properties.getProperty("finalCSV");
 
             } catch (IOException e) {
 
