@@ -1,0 +1,11 @@
+language: java
+jdk:
+- openjdk8
+
+addons:
+  sonarcloud:
+    organization: leopetr95
+    token: 9dc254ac4998a2aab3284541169a310c030b644c
+
+script: 
+- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=leopetr95_Milestone2
