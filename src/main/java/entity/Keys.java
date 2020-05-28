@@ -2,7 +2,8 @@ package entity;
 
 public class Keys {
 
-    public Object key1, key2;
+    public Object key1;
+    public Object key2;
 
     public Keys(Object key1, Object key2) {
 

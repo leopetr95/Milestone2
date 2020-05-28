@@ -40,6 +40,8 @@ import static utility.ImportProperties.*;
 
 public class CalculateMetrics {
 
+    private static final String index = "Index";
+    private static final String stringClass = "Class";
 
     /*
     * Compute MAX ChgSet and AVG ChgSet
@@ -106,7 +108,7 @@ public class CalculateMetrics {
 
             }
 
-            csvWriter.writeNext(new String[]{"Class", "Index", "Max", "Avg"});
+            csvWriter.writeNext(new String[]{stringClass, index, "Max", "Avg"});
             csvWriter.writeAll(outList);
 
         }
@@ -128,7 +130,6 @@ public class CalculateMetrics {
 
         final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-
         Git git = new Git(new FileRepository(cPath));
         Repository repository = git.getRepository();
 
@@ -147,19 +148,19 @@ public class CalculateMetrics {
 
             for(int i = 0; i < trees.size(); i++){
 
-                for(int j = 0; j < trees.size(); j++){
+                for (String[] tree : trees) {
 
                     Date dateTreeI = format.parse(trees.get(i)[2]);
-                    Date dateTreeJ = format.parse(trees.get(j)[2]);
+                    Date dateTreeJ = format.parse(tree[2]);
 
-                    if((trees.get(i)[0].equals(trees.get(j)[0])) && dateTreeJ.after(dateTreeI)){
+                    if ((trees.get(i)[0].equals(tree[0])) && dateTreeJ.after(dateTreeI)) {
 
                         ObjectReader reader = repository.newObjectReader();
                         CanonicalTreeParser oldTree = new CanonicalTreeParser();
                         ObjectId oldCommit = ObjectId.fromString(trees.get(i)[3].substring(5, trees.get(i)[3].indexOf("-") - 1));
                         oldTree.reset(reader, oldCommit);
 
-                        ObjectId newCommit = ObjectId.fromString(trees.get(j)[3].substring(5, trees.get(j)[3].indexOf("-") - 1));
+                        ObjectId newCommit = ObjectId.fromString(tree[3].substring(5, tree[3].indexOf("-") - 1));
                         CanonicalTreeParser newTreeIter = new CanonicalTreeParser();
                         newTreeIter.reset(reader, newCommit);
 
@@ -168,19 +169,19 @@ public class CalculateMetrics {
                         diffFormatter.setContext(0);
                         List<DiffEntry> entries = diffFormatter.scan(newTreeIter, oldTree);
 
-                        for(DiffEntry entry: entries){
+                        for (DiffEntry entry : entries) {
 
-                            for(Edit edit: diffFormatter.toFileHeader(entry).toEditList()){
+                            for (Edit edit : diffFormatter.toFileHeader(entry).toEditList()) {
 
                                 linesDeleted = linesDeleted + edit.getEndA() - edit.getBeginA();
-                                linesAdded = linesAdded + edit.getEndB() -edit.getBeginB();
+                                linesAdded = linesAdded + edit.getEndB() - edit.getBeginB();
                                 linesTouched = linesAdded + linesDeleted;
 
                             }
 
                         }
 
-                        out.add(new String[]{trees.get(j)[2], trees.get(i)[0], Integer.toString(linesAdded), Integer.toString(linesDeleted), Integer.toString(linesTouched)});
+                        out.add(new String[]{tree[2], trees.get(i)[0], Integer.toString(linesAdded), Integer.toString(linesDeleted), Integer.toString(linesTouched)});
 
                         linesAdded = 0;
                         linesDeleted = 0;
@@ -250,7 +251,7 @@ public class CalculateMetrics {
 
             }
 
-            csvWriter.writeNext(new String[]{"Date", "Class", "LinesAdded", "LinesDeleted", "LinesTouched", "Index", "Sum"});
+            csvWriter.writeNext(new String[]{"Date", stringClass, "LinesAdded", "LinesDeleted", "LinesTouched", index, "Sum"});
             csvWriter.writeAll(outLIndex);
 
         }catch(IOException e){
@@ -288,9 +289,7 @@ public class CalculateMetrics {
                 for(String[] strings1: outLIndx){
 
                     if((strings[1].equals(strings1[1])) && (strings[5].equals(strings1[5]))){
-
-                        //temp = temp + Integer.parseInt(strings[2]);
-
+                        
                         Keys keys = new Keys(strings[5], strings[1]);
 
                         if(!finalmap.containsKey(keys)){
@@ -337,7 +336,7 @@ public class CalculateMetrics {
 
             }
 
-            csvWriter.writeNext(new String[]{"Date", "Class", "MAXLOC", "AVGLOC", "Index"});
+            csvWriter.writeNext(new String[]{"Date", stringClass, "MAXLOC", "AVGLOC", index});
             csvWriter.writeAll(maxAvg);
 
 
@@ -417,7 +416,7 @@ public class CalculateMetrics {
 
             }
 
-            csvWriter.writeNext(new String[]{"Class", "Index", "ChgSetSize"});
+            csvWriter.writeNext(new String[]{stringClass, index, "ChgSetSize"});
             csvWriter.writeAll(listChgSetSize);
 
         }catch(IOException e){
@@ -502,7 +501,7 @@ public class CalculateMetrics {
             }
 
             //Aggiungo l'header
-            csvWriter.writeNext(new String[]{"Index", "Class", "Size", "Age", "NumberOfAuthors"});
+            csvWriter.writeNext(new String[]{index, stringClass, "Size", "Age", "NumberOfAuthors"});
             csvWriter.writeAll(listAge);
 
         } catch (ParseException | GitAPIException e) {
@@ -644,7 +643,7 @@ public class CalculateMetrics {
 
             //Index, Class, Size, Age, NumberOfAuthors, Sum, MaxChg, AvgChg, MaxLoc, AvgLoc, ChgSetSize
 
-            csvWriter.writeNext(new String[]{"Index", "Class", "Size", "Age", "NumberOfAuthors", "Sum", "MaxChg", "AvgChg", "MaxLoc", "AvgLoc", "ChgSetSize"});
+            csvWriter.writeNext(new String[]{index, stringClass, "Size", "Age", "NumberOfAuthors", "Sum", "MaxChg", "AvgChg", "MaxLoc", "AvgLoc", "ChgSetSize"});
             csvWriter.writeAll(finalList);
 
         } catch (IOException e) {

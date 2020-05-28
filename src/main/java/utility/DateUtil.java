@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 public class DateUtil{
 
-    public static Date stringToDate(String s) {
+    public Date stringToDate(String s) {
 
         Date result = new Date();
         try {
