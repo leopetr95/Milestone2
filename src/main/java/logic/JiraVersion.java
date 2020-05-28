@@ -14,6 +14,8 @@ import static utility.ImportProperties.*;
 
 public class JiraVersion {
 
+    private JiraVersion(){}
+
     private static final String FIELDS = "fields";
 
     public static void retrieveTicketOnlyFVFromJira(String projName) throws IOException {

@@ -365,7 +365,7 @@ public class DefectiveClasses {
 
             for(Map.Entry<Keys, String> entry: finalmap.entrySet()){
 
-                finalList.add(new String[]{entry.getKey().key1.toString(), entry.getKey().key2.toString(), entry.getValue()});
+                finalList.add(new String[]{entry.getKey().getKey1().toString(), entry.getKey().getKey2().toString(), entry.getValue()});
 
             }
 

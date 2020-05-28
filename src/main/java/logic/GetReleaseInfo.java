@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.io.FileWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -16,7 +15,6 @@ import java.util.Comparator;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
@@ -68,16 +66,8 @@ public class GetReleaseInfo {
         }
 
         // order releases by date
-        Collections.sort(releases, new Comparator<LocalDateTime>(){
-
-            //@Override
-            public int compare(LocalDateTime o1, LocalDateTime o2) {
-
-                return o1.compareTo(o2);
-
-            }
-
-        });
+        //@Override
+        Collections.sort(releases, (o1, o2) -> o1.compareTo(o2));
 
         if (releases.size() < 6) {
 

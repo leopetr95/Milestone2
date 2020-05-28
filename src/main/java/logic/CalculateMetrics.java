@@ -101,11 +101,11 @@ public class CalculateMetrics {
 
                 if(entry.getValue().getCounter() == 0){
 
-                    outList.add(new String[]{entry.getKey().key1.toString(), entry.getKey().key2.toString(), entry.getValue().getString1(), String.valueOf(entry.getValue().getTemp())});
+                    outList.add(new String[]{entry.getKey().getKey1().toString(), entry.getKey().getKey2().toString(), entry.getValue().getString1(), String.valueOf(entry.getValue().getTemp())});
 
                 }else{
 
-                    outList.add(new String[]{entry.getKey().key1.toString(), entry.getKey().key2.toString(), entry.getValue().getString1(), String.valueOf(entry.getValue().getTemp()/entry.getValue().getCounter())});
+                    outList.add(new String[]{entry.getKey().getKey1().toString(), entry.getKey().getKey2().toString(), entry.getValue().getString1(), String.valueOf(entry.getValue().getTemp()/entry.getValue().getCounter())});
 
                 }
 
@@ -328,11 +328,11 @@ public class CalculateMetrics {
 
                 if(entry.getValue().getCounter() == 0){
 
-                    maxAvg.add(new String[]{entry.getValue().getString1(), entry.getKey().key2.toString(), entry.getValue().getString2(), String.valueOf(entry.getValue().getTemp()), entry.getKey().key1.toString()});
+                    maxAvg.add(new String[]{entry.getValue().getString1(), entry.getKey().getKey2().toString(), entry.getValue().getString2(), String.valueOf(entry.getValue().getTemp()), entry.getKey().getKey1().toString()});
 
                 }else{
 
-                    maxAvg.add(new String[]{entry.getValue().getString1(), entry.getKey().key2.toString(), entry.getValue().getString2(), String.valueOf((entry.getValue().getTemp()/entry.getValue().getCounter())), entry.getKey().key1.toString()});
+                    maxAvg.add(new String[]{entry.getValue().getString1(), entry.getKey().getKey2().toString(), entry.getValue().getString2(), String.valueOf((entry.getValue().getTemp()/entry.getValue().getCounter())), entry.getKey().getKey1().toString()});
 
                 }
 
@@ -634,7 +634,7 @@ public class CalculateMetrics {
 
                if(entry.getValue().getString10() != null){
 
-                   finalList.add(new String[]{entry.getKey().key1.toString(), entry.getKey().key2.toString(), entry.getValue().getString1(), entry.getValue().getString2(), entry.getValue().getString3(), entry.getValue().getString4()
+                   finalList.add(new String[]{entry.getKey().getKey1().toString(), entry.getKey().getKey2().toString(), entry.getValue().getString1(), entry.getValue().getString2(), entry.getValue().getString3(), entry.getValue().getString4()
                            , entry.getValue().getString5(), entry.getValue().getString6(), entry.getValue().getString7(), entry.getValue().getString8(), entry.getValue().getString9(), entry.getValue().getString10()});
 
                }

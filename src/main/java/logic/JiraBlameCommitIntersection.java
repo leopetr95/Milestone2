@@ -67,7 +67,7 @@ public class JiraBlameCommitIntersection {
 
             for(Map.Entry<Keys, Values> entry: map.entrySet()){
 
-                listIntersection.add(new String[]{entry.getKey().key1.toString(), entry.getKey().key2.toString(), entry.getValue().getString1(), entry.getValue().getString2()});
+                listIntersection.add(new String[]{entry.getKey().getKey1().toString(), entry.getKey().getKey2().toString(), entry.getValue().getString1(), entry.getValue().getString2()});
 
             }
 
