@@ -539,8 +539,6 @@ public class CalculateMetrics {
             CSVReader csvReader2 = new CSVReader(fileReader2);
             FileReader fileReader3 = new FileReader(getOutLocIndex());
             CSVReader csvReader3 = new CSVReader(fileReader3);
-            FileReader fileReader4 = new FileReader(getPreFinalCsv());
-            CSVReader csvReader4 = new CSVReader(fileReader4);
             FileReader fileReader5 = new FileReader(getSizeMetric());
             CSVReader csvReader5 = new CSVReader(fileReader5);
             ){
@@ -557,12 +555,10 @@ public class CalculateMetrics {
             List<String[]> listMaxAvgChgSetSize = csvReader2.readAll();
             List<String[]> listOutLocIndex = csvReader3.readAll();
             List<String[]> listSizeMetric = csvReader5.readAll();
-            List<String[]> listPreFinalCsv = csvReader4.readAll();
+
 
 
             //Index, Class, Size, Age, NumberOfAuthors, Sum, MaxChg, AvgChg, MaxLoc, AvgLoc, ChgSetSize
-
-            List<String[]> finalList = new ArrayList<>();
 
             for(String[] stringSizeMetric: listSizeMetric){
 
@@ -641,6 +637,23 @@ public class CalculateMetrics {
 
             }
 
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return map;
+
+    }
+
+    private static Map<Keys, Values> writePrefinal(Map<Keys, Values> map){
+
+
+        try(FileReader fileReader4 = new FileReader(getPreFinalCsv());
+            CSVReader csvReader4 = new CSVReader(fileReader4);){
+
+            List<String[]> listPreFinalCsv = csvReader4.readAll();
+
             for(String[] stringPreFinal: listPreFinalCsv){
 
                 Keys keys = new Keys(stringPreFinal[0], stringPreFinal[1]);
@@ -658,7 +671,9 @@ public class CalculateMetrics {
 
 
         } catch (IOException e) {
+
             e.printStackTrace();
+
         }
 
         return map;
@@ -671,7 +686,6 @@ public class CalculateMetrics {
             CSVWriter csvWriter = new CSVWriter(fileWriter)) {
 
             List<String[]> finalList = new ArrayList<>();
-
 
             for(Map.Entry<Keys, Values> entry: map.entrySet()){
 
@@ -736,7 +750,7 @@ public class CalculateMetrics {
         calculateSizeAgeAuthors();
         calculateChgSetSize();
         retrieveMaxAndAverageChgSetSize();
-        writeFinal(createFinalCSV());
+        writeFinal(writePrefinal(createFinalCSV()));
 
 
 
@@ -770,7 +784,7 @@ public class CalculateMetrics {
         calculateSizeAgeAuthors();
         calculateChgSetSize();
         retrieveMaxAndAverageChgSetSize();
-        writeFinal(createFinalCSV());
+        writeFinal(writePrefinal(createFinalCSV()));
 
     }
 
