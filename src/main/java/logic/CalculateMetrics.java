@@ -697,7 +697,7 @@ public class CalculateMetrics {
 
         importProp(PROJECT1);
 
-        /*createDirectory(PROJECT1);
+        createDirectory(PROJECT1);
         cloneRepository();
         createCsvClass();
         executeBlame();
@@ -722,14 +722,14 @@ public class CalculateMetrics {
         writeMaxAvgLoc(retrieveMaxAndAverageLoc());
         calculateSizeAgeAuthors();
         calculateChgSetSize();
-        retrieveMaxAndAverageChgSetSize();*/
+        retrieveMaxAndAverageChgSetSize();
         createFinalCSV();
 
 
 
         //Project ZOOKEEPER
 
-        /*importProp(PROJECT2);
+        importProp(PROJECT2);
 
         createDirectory(PROJECT2);
         cloneRepository();
@@ -757,7 +757,7 @@ public class CalculateMetrics {
         calculateSizeAgeAuthors();
         calculateChgSetSize();
         retrieveMaxAndAverageChgSetSize();
-        createFinalCSV();*/
+        createFinalCSV();
 
     }
 
