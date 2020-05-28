@@ -734,10 +734,30 @@ public class CalculateMetrics {
         blameJira();
         blameJiraFVOnly();
         getDefective();
+
+        List<String[]> intervals = new ArrayList<>();
+
+        try(FileReader fileReader = new FileReader(ImportProperties.getVersionInfo()); CSVReader csvReader = new CSVReader(fileReader);){
+
+            csvReader.readNext();
+            List<String[]> list = csvReader.readAll();
+
+            for(int i = 0; i < (list.size() / 2) ; i++){
+
+                intervals.add(new String[]{list.get(i)[3].substring(0,10), list.get(i+1)[3].substring(0,10)});
+
+            }
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+        }
+
         //ticket with Affected Version
-        determineOV(0, getBlameJiraIntersection(), getBlameJiraIntersectionOV());
+        determineOV(0, getBlameJiraIntersection(), getBlameJiraIntersectionOV(), intervals);
         //ticket without Affected Version
-        determineOV(1, getBlameJiraIntersectionFVOnly(), getBlameJiraIntersectionOVFVOnly());
+        determineOV(1, getBlameJiraIntersectionFVOnly(), getBlameJiraIntersectionOVFVOnly(), intervals);
         double p = getProportion();
         calculatePredictedIV(p);
         sumBuggyPredicted();
@@ -769,9 +789,28 @@ public class CalculateMetrics {
         blameJiraFVOnly();
         getDefective();
         //ticket with Affected Version
-        determineOV(0, getBlameJiraIntersection(), getBlameJiraIntersectionOV());
+
+        List<String[]> intervals1 = new ArrayList<>();
+
+        try(FileReader fileReader = new FileReader(ImportProperties.getVersionInfo()); CSVReader csvReader = new CSVReader(fileReader);){
+
+            csvReader.readNext();
+            List<String[]> list = csvReader.readAll();
+
+            for(int i = 0; i < (list.size() / 2) ; i++){
+
+                intervals.add(new String[]{list.get(i)[3].substring(0,10), list.get(i+1)[3].substring(0,10)});
+
+            }
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+        }
+        determineOV(0, getBlameJiraIntersection(), getBlameJiraIntersectionOV(), intervals1);
         //ticket without Affected Version
-        determineOV(1, getBlameJiraIntersectionFVOnly(), getBlameJiraIntersectionOVFVOnly());
+        determineOV(1, getBlameJiraIntersectionFVOnly(), getBlameJiraIntersectionOVFVOnly(), intervals1);
         double p1 = getProportion();
         calculatePredictedIV(p1);
         sumBuggyPredicted();

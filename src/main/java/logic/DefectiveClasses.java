@@ -23,7 +23,7 @@ public class DefectiveClasses {
     private static final String STRINGTICKET = "Ticket";
 
 
-    public static void determineOV(int flag, String blameJiraIntersectionPath, String blameJiraIntersectionOVPath){
+    public static void determineOV(int flag, String blameJiraIntersectionPath, String blameJiraIntersectionOVPath, List<String[]> intervals){
 
         try(FileReader fileReader = new FileReader(blameJiraIntersectionPath);
             CSVReader csvReader = new CSVReader(fileReader);
@@ -39,15 +39,7 @@ public class DefectiveClasses {
             List<String[]> versions = csvReader1.readAll();
             List<String[]> jiraOV = new ArrayList<>();
 
-            List<String[]> intervals = new ArrayList<>();
-
             DateUtil dateUtil = new DateUtil();
-
-            for(int i = 0; i < (versions.size() / 2) -1; i++){
-
-                intervals.add(new String[]{versions.get(i)[3].substring(0,10), versions.get(i+1)[3].substring(0,10)});
-
-            }
 
             String result;
             String realResult = "";
@@ -375,10 +367,28 @@ public class DefectiveClasses {
 
         getDefective();
         //ticket con Affected Version
+        List<String[]> intervals = new ArrayList<>();
 
-        determineOV(0, getBlameJiraIntersection(), getBlameJiraIntersectionOV());
+        try(FileReader fileReader = new FileReader(getVersionInfo()); CSVReader csvReader = new CSVReader(fileReader);){
+
+            csvReader.readNext();
+            List<String[]> list = csvReader.readAll();
+
+            for(int i = 0; i < (list.size() / 2) ; i++){
+
+                intervals.add(new String[]{list.get(i)[3].substring(0,10), list.get(i+1)[3].substring(0,10)});
+
+            }
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+        }
+
+        determineOV(0, getBlameJiraIntersection(), getBlameJiraIntersectionOV(), intervals);
         //ticket senza Affected Version
-        determineOV(1, getBlameJiraIntersectionFVOnly(), getBlameJiraIntersectionOVFVOnly());
+        determineOV(1, getBlameJiraIntersectionFVOnly(), getBlameJiraIntersectionOVFVOnly(), intervals);
         double p = getProportion();
         calculatePredictedIV(p);
         sumBuggyPredicted();
