@@ -302,7 +302,6 @@ public class DefectiveClasses {
             csvReader.readNext();
             csvReader1.readNext();
 
-
             List<String[]> sumBuggy = csvReader.readAll();
             List<String[]> classes = csvReader1.readAll();
             List<String[]> versions = csvReader2.readAll();

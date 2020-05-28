@@ -2,10 +2,8 @@ package utility;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class DateUtil{
 
@@ -24,25 +22,6 @@ public class DateUtil{
         }
 
         return result;
-
-    }
-
-    //Confronto due date
-    public Date compareDate(Date date1, Date date2) {
-
-        Date lastDate;
-
-        if (date1.after(date2)) {
-
-            lastDate = date1;
-
-        } else {
-
-            lastDate = date2;
-
-        }
-
-        return lastDate;
 
     }
 
@@ -154,23 +133,6 @@ public class DateUtil{
 
         return result;
 
-    }
-
-    public static long getDateDiff(Date date1) {
-
-        LocalDate localDate = LocalDate.now();
-        Date date = convertToDateViaSqlDate(localDate);
-
-        long diffInMillies = date.getTime() - date1.getTime();
-
-        long days = TimeUnit.MILLISECONDS.toDays(diffInMillies);
-
-        return days / 7;
-
-    }
-
-    public static Date convertToDateViaSqlDate(LocalDate dateToConvert) {
-        return java.sql.Date.valueOf(dateToConvert);
     }
 
 

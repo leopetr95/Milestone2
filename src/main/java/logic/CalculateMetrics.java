@@ -3,6 +3,7 @@ package logic;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import entity.Keys;
+import entity.SubValues;
 import entity.Values;
 import org.eclipse.jgit.api.BlameCommand;
 import org.eclipse.jgit.api.Git;
@@ -566,8 +567,14 @@ public class CalculateMetrics {
 
             for(String[] stringSizeMetric: listSizeMetric){
 
+                //Index, Class
                 Keys keys = new Keys(stringSizeMetric[0], stringSizeMetric[1]);
-                Values values = new Values(stringSizeMetric[2], stringSizeMetric[3], stringSizeMetric[4], "0", "0", "0", "0", "0", "0");
+
+                //NumberOfAuthors, Sum, MaxChg, AvgChg, MaxLoc, AvgLoc, ChgSetsize
+                SubValues subValues = new SubValues(stringSizeMetric[4], "0", "0", "0", "0", "0", "0");
+
+                //Size, Age, Subvalues
+                Values values = new Values(stringSizeMetric[2], stringSizeMetric[3], subValues);
 
                 map.put(keys, values);
 
@@ -579,7 +586,10 @@ public class CalculateMetrics {
 
                 if(map.containsKey(keys)){
 
-                    Values values = new Values(map.get(keys).getString1(), map.get(keys).getString2(), map.get(keys).getString3(), stringOutLocIndex[6], map.get(keys).getString5(), map.get(keys).getString6(), map.get(keys).getString7(), map.get(keys).getString8(), map.get(keys).getString9());
+                    SubValues subValues = new SubValues(map.get(keys).getSubValues().getString1(), stringOutLocIndex[6], map.get(keys).getSubValues().getString3(), map.get(keys).getSubValues().getString4(), map.get(keys).getSubValues().getString5(), map.get(keys).getSubValues().getString6(), map.get(keys).getSubValues().getString7());
+
+                    //Size, Age, SubValues
+                    Values values = new Values(map.get(keys).getString1(), map.get(keys).getString2(), subValues);
 
                     map.replace(keys, values);
 
@@ -593,7 +603,10 @@ public class CalculateMetrics {
 
                 if(map.containsKey(keys)){
 
-                    Values values = new Values(map.get(keys).getString1(), map.get(keys).getString2(), map.get(keys).getString3(), map.get(keys).getString4(), stringMaxAvgChg[2], stringMaxAvgChg[3], map.get(keys).getString7(), map.get(keys).getString8(), map.get(keys).getString9());
+                    SubValues subValues = new SubValues(map.get(keys).getSubValues().getString1(), map.get(keys).getSubValues().getString2(), stringMaxAvgChg[2], stringMaxAvgChg[3], map.get(keys).getSubValues().getString5(), map.get(keys).getSubValues().getString6(), map.get(keys).getSubValues().getString7());
+
+                    //Size, Age, SubValues
+                    Values values = new Values(map.get(keys).getString1(), map.get(keys).getString2(),subValues);
 
                     map.replace(keys, values);
 
@@ -607,7 +620,8 @@ public class CalculateMetrics {
 
                 if(map.containsKey(keys)){
 
-                    Values values = new Values(map.get(keys).getString1(), map.get(keys).getString2(), map.get(keys).getString3(), map.get(keys).getString4(), map.get(keys).getString5(), map.get(keys).getString6(), stringMaxAverage[2], stringMaxAverage[3], map.get(keys).getString9());
+                    SubValues subValues = new SubValues( map.get(keys).getSubValues().getString1(), map.get(keys).getSubValues().getString2(), map.get(keys).getSubValues().getString3(), map.get(keys).getSubValues().getString4(), stringMaxAverage[2], stringMaxAverage[3], map.get(keys).getSubValues().getString7());
+                    Values values = new Values(map.get(keys).getString1(), map.get(keys).getString2(),subValues);
                     map.replace(keys, values);
 
                 }
@@ -620,7 +634,8 @@ public class CalculateMetrics {
 
                 if(map.containsKey(keys)){
 
-                    Values values = new Values(map.get(keys).getString1(), map.get(keys).getString2(), map.get(keys).getString3(), map.get(keys).getString4(), map.get(keys).getString5(), map.get(keys).getString6(), map.get(keys).getString7(), map.get(keys).getString8(), stringChgSetSize[2]);
+                    SubValues subValues = new SubValues(map.get(keys).getSubValues().getString1(), map.get(keys).getSubValues().getString2(),map.get(keys).getSubValues().getString3(), map.get(keys).getSubValues().getString4(), map.get(keys).getSubValues().getString5(), map.get(keys).getSubValues().getString6(), stringChgSetSize[2]);
+                    Values values = new Values(map.get(keys).getString1(), map.get(keys).getString2(), subValues);
                     map.replace(keys, values);
 
                 }
@@ -633,8 +648,10 @@ public class CalculateMetrics {
 
                 if(map.containsKey(keys)){
 
-                    Values values = new Values(map.get(keys).getString1(), map.get(keys).getString2(), map.get(keys).getString3(), map.get(keys).getString4(), map.get(keys).getString5(), map.get(keys).getString6(), map.get(keys).getString7(), map.get(keys).getString8(), map.get(keys).getString9(), stringPreFinal[2]);
+                    SubValues subValues = new SubValues(map.get(keys).getSubValues().getString2(), map.get(keys).getSubValues().getString3(), map.get(keys).getSubValues().getString4(), map.get(keys).getSubValues().getString5(), map.get(keys).getSubValues().getString6(), map.get(keys).getSubValues().getString7(), stringPreFinal[2]);
+                    Values values = new Values(map.get(keys).getString1(), map.get(keys).getString2(), map.get(keys).getSubValues().getString1(), subValues);
 
+                    System.out.println(map.get(keys).getString2());
                     map.replace(keys, values);
 
                 }
@@ -643,10 +660,21 @@ public class CalculateMetrics {
 
            for(Map.Entry<Keys, Values> entry: map.entrySet()){
 
-               if(entry.getValue().getString10() != null){
+               if(entry.getValue().getSubValues().getString7()!= null){
 
-                   finalList.add(new String[]{entry.getKey().getKey1().toString(), entry.getKey().getKey2().toString(), entry.getValue().getString1(), entry.getValue().getString2(), entry.getValue().getString3(), entry.getValue().getString4()
-                           , entry.getValue().getString5(), entry.getValue().getString6(), entry.getValue().getString7(), entry.getValue().getString8(), entry.getValue().getString9(), entry.getValue().getString10()});
+                   finalList.add(new String[]{
+                           entry.getKey().getKey1().toString(),
+                           entry.getKey().getKey2().toString(),
+                           entry.getValue().getString1(),
+                           entry.getValue().getString2(),
+                           entry.getValue().getString3(),
+                           entry.getValue().getSubValues().getString1(),
+                           entry.getValue().getSubValues().getString2(),
+                           entry.getValue().getSubValues().getString3(),
+                           entry.getValue().getSubValues().getString4(),
+                           entry.getValue().getSubValues().getString5(),
+                           entry.getValue().getSubValues().getString6(),
+                           entry.getValue().getSubValues().getString7()});
 
                }
 
@@ -654,7 +682,7 @@ public class CalculateMetrics {
 
             //Index, Class, Size, Age, NumberOfAuthors, Sum, MaxChg, AvgChg, MaxLoc, AvgLoc, ChgSetSize
 
-            csvWriter.writeNext(new String[]{INDEX, STRINGCLASS, "Size", "Age", "NumberOfAuthors", "Sum", "MaxChg", "AvgChg", "MaxLoc", "AvgLoc", "ChgSetSize"});
+            csvWriter.writeNext(new String[]{INDEX, STRINGCLASS, "Size", "Age", "NumberOfAuthors", "Sum", "MaxChg", "AvgChg", "MaxLoc", "AvgLoc", "ChgSetSize", "Bugginess"});
             csvWriter.writeAll(finalList);
 
         } catch (IOException e) {
@@ -669,7 +697,7 @@ public class CalculateMetrics {
 
         importProp(PROJECT1);
 
-        createDirectory(PROJECT1);
+        /*createDirectory(PROJECT1);
         cloneRepository();
         createCsvClass();
         executeBlame();
@@ -694,14 +722,14 @@ public class CalculateMetrics {
         writeMaxAvgLoc(retrieveMaxAndAverageLoc());
         calculateSizeAgeAuthors();
         calculateChgSetSize();
-        retrieveMaxAndAverageChgSetSize();
+        retrieveMaxAndAverageChgSetSize();*/
         createFinalCSV();
 
 
 
         //Project ZOOKEEPER
 
-        importProp(PROJECT2);
+        /*importProp(PROJECT2);
 
         createDirectory(PROJECT2);
         cloneRepository();
@@ -729,7 +757,7 @@ public class CalculateMetrics {
         calculateSizeAgeAuthors();
         calculateChgSetSize();
         retrieveMaxAndAverageChgSetSize();
-        createFinalCSV();
+        createFinalCSV();*/
 
     }
 
