@@ -268,10 +268,12 @@ public class CalculateMetrics {
     /*
     * Compute MAX LOC added, AVG LOC added
     * */
-    private static void retrieveMaxAndAverageLoc(){
+    private static Map<Keys, Values> retrieveMaxAndAverageLoc(){
+
+        Map<Keys, Values> finalmap = new HashMap<>();
 
         try(FileReader fileReader = new FileReader(getOutLocIndex()); CSVReader csvReader = new CSVReader(fileReader);
-            FileWriter fileWriter = new FileWriter(getMaxAverage()); CSVWriter csvWriter = new CSVWriter(fileWriter)
+
 
         ){
 
@@ -281,11 +283,8 @@ public class CalculateMetrics {
             int temp = 0;
             int count = 0;
 
-            Map<Keys, Values> finalmap = new HashMap<>();
-
             csvReader.readNext();
             List<String[]> outLIndx = csvReader.readAll();
-            List<String[]> maxAvg = new ArrayList<>();
 
             for(String[] strings: outLIndx){
 
@@ -324,6 +323,20 @@ public class CalculateMetrics {
 
             }
 
+
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        return finalmap;
+
+    }
+
+    private static void writeMaxAvgLoc(Map<Keys, Values> finalmap){
+
+        List<String[]> maxAvg = new ArrayList<>();
+
+        try(FileWriter fileWriter = new FileWriter(getMaxAverage()); CSVWriter csvWriter = new CSVWriter(fileWriter);){
+
             for(Map.Entry<Keys, Values> entry: finalmap.entrySet()){
 
                 if(entry.getValue().getCounter() == 0){
@@ -336,14 +349,12 @@ public class CalculateMetrics {
 
                 }
 
-
             }
 
             csvWriter.writeNext(new String[]{"Date", STRINGCLASS, "MAXLOC", "AVGLOC", INDEX});
             csvWriter.writeAll(maxAvg);
 
-
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -680,7 +691,7 @@ public class CalculateMetrics {
         createPrefinalCSV();
         retrieveLOCFromTrees();
         retrieveLOCFromTreesWithIndexAndSum();
-        retrieveMaxAndAverageLoc();
+        writeMaxAvgLoc(retrieveMaxAndAverageLoc());
         calculateSizeAgeAuthors();
         calculateChgSetSize();
         retrieveMaxAndAverageChgSetSize();
@@ -714,7 +725,7 @@ public class CalculateMetrics {
         createPrefinalCSV();
         retrieveLOCFromTrees();
         retrieveLOCFromTreesWithIndexAndSum();
-        retrieveMaxAndAverageLoc();
+        writeMaxAvgLoc(retrieveMaxAndAverageLoc());
         calculateSizeAgeAuthors();
         calculateChgSetSize();
         retrieveMaxAndAverageChgSetSize();
