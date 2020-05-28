@@ -13,7 +13,7 @@ public class DateUtil{
 
     public static Date stringToDate(String s) {
 
-        Date result = null;
+        Date result = new Date();
         try {
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
