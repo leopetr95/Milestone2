@@ -3,6 +3,7 @@ package logic;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import entity.Keys;
+import entity.Values;
 import utility.DateUtil;
 
 import java.io.*;
@@ -277,7 +278,7 @@ public class DefectiveClasses {
         try(FileReader fileReader = new FileReader(getSumBuggyPredicted()); CSVReader csvReader = new CSVReader(fileReader);
         FileReader fileReader1 = new FileReader(getCsvClassPath()); CSVReader csvReader1 = new CSVReader(fileReader1);
         FileReader fileReader2 = new FileReader(getVersionInfo()); CSVReader csvReader2 = new CSVReader(fileReader2);
-        FileWriter fileWriter = new FileWriter(getPreFinalCsv()); CSVWriter csvWriter = new CSVWriter(fileWriter)){
+        ){
 
             //Salto gli header
             csvReader.readNext();
@@ -343,7 +344,23 @@ public class DefectiveClasses {
 
             }
 
-            for(Map.Entry<Keys, String> entry: finalmap.entrySet()){
+            writePreFinal(finalmap, sumBuggy);
+
+        }catch(IOException e){
+
+            e.printStackTrace();
+
+        }
+
+    }
+
+    public static void writePreFinal(Map<Keys, String> map, List<String[]> sumBuggy){
+
+        List<String[]> finalList = new ArrayList<>();
+
+        try(FileWriter fileWriter = new FileWriter(getPreFinalCsv()); CSVWriter csvWriter = new CSVWriter(fileWriter)){
+
+            for(Map.Entry<Keys, String> entry: map.entrySet()){
 
                 finalList.add(new String[]{entry.getKey().getKey1().toString(), entry.getKey().getKey2().toString(), entry.getValue()});
 
@@ -352,10 +369,8 @@ public class DefectiveClasses {
             csvWriter.writeAll(sumBuggy);
             csvWriter.writeAll(finalList);
 
-        }catch(IOException e){
-
+        } catch (IOException e) {
             e.printStackTrace();
-
         }
 
     }
