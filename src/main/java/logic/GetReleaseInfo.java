@@ -21,10 +21,10 @@ import org.json.JSONArray;
 
 public class GetReleaseInfo {
 
-    public static HashMap<LocalDateTime, String> releaseNames;
-    public static HashMap<LocalDateTime, String> releaseID;
-    public static ArrayList<LocalDateTime> releases;
-    public static Integer numVersions;
+    private static HashMap<LocalDateTime, String> releaseNames;
+    private static HashMap<LocalDateTime, String> releaseID;
+    private static ArrayList<LocalDateTime> releases;
+    private static Integer numVersions;
 
     //La classe restituisce le release del progetto preso in considerazione fino ad ora
 
