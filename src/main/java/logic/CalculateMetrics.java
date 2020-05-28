@@ -40,8 +40,10 @@ import static utility.ImportProperties.*;
 
 public class CalculateMetrics {
 
-    private static final String index = "Index";
-    private static final String stringClass = "Class";
+    private static final String INDEX = "Index";
+    private static final String STRINGCLASS = "Class";
+    private static final String PROJECT1 = "BOOKKEEPER";
+    private static final String PROJECT2 = "ZOOKEEPER";
 
     /*
     * Compute MAX ChgSet and AVG ChgSet
@@ -108,7 +110,7 @@ public class CalculateMetrics {
 
             }
 
-            csvWriter.writeNext(new String[]{stringClass, index, "Max", "Avg"});
+            csvWriter.writeNext(new String[]{STRINGCLASS, INDEX, "Max", "Avg"});
             csvWriter.writeAll(outList);
 
         }
@@ -251,7 +253,7 @@ public class CalculateMetrics {
 
             }
 
-            csvWriter.writeNext(new String[]{"Date", stringClass, "LinesAdded", "LinesDeleted", "LinesTouched", index, "Sum"});
+            csvWriter.writeNext(new String[]{"Date", STRINGCLASS, "LinesAdded", "LinesDeleted", "LinesTouched", INDEX, "Sum"});
             csvWriter.writeAll(outLIndex);
 
         }catch(IOException e){
@@ -289,7 +291,7 @@ public class CalculateMetrics {
                 for(String[] strings1: outLIndx){
 
                     if((strings[1].equals(strings1[1])) && (strings[5].equals(strings1[5]))){
-                        
+
                         Keys keys = new Keys(strings[5], strings[1]);
 
                         if(!finalmap.containsKey(keys)){
@@ -336,7 +338,7 @@ public class CalculateMetrics {
 
             }
 
-            csvWriter.writeNext(new String[]{"Date", stringClass, "MAXLOC", "AVGLOC", index});
+            csvWriter.writeNext(new String[]{"Date", STRINGCLASS, "MAXLOC", "AVGLOC", INDEX});
             csvWriter.writeAll(maxAvg);
 
 
@@ -416,7 +418,7 @@ public class CalculateMetrics {
 
             }
 
-            csvWriter.writeNext(new String[]{stringClass, index, "ChgSetSize"});
+            csvWriter.writeNext(new String[]{STRINGCLASS, INDEX, "ChgSetSize"});
             csvWriter.writeAll(listChgSetSize);
 
         }catch(IOException e){
@@ -501,7 +503,7 @@ public class CalculateMetrics {
             }
 
             //Aggiungo l'header
-            csvWriter.writeNext(new String[]{index, stringClass, "Size", "Age", "NumberOfAuthors"});
+            csvWriter.writeNext(new String[]{INDEX, STRINGCLASS, "Size", "Age", "NumberOfAuthors"});
             csvWriter.writeAll(listAge);
 
         } catch (ParseException | GitAPIException e) {
@@ -629,9 +631,6 @@ public class CalculateMetrics {
 
            for(Map.Entry<Keys, Values> entry: map.entrySet()){
 
-               //finalList.add(new String[]{entry.getKey().key1.toString(), entry.getKey().key2.toString(), entry.getValue().getString1(), entry.getValue().getString2(), entry.getValue().getString3(), entry.getValue().getString4()});
-
-
                if(entry.getValue().getString10() != null){
 
                    finalList.add(new String[]{entry.getKey().key1.toString(), entry.getKey().key2.toString(), entry.getValue().getString1(), entry.getValue().getString2(), entry.getValue().getString3(), entry.getValue().getString4()
@@ -643,7 +642,7 @@ public class CalculateMetrics {
 
             //Index, Class, Size, Age, NumberOfAuthors, Sum, MaxChg, AvgChg, MaxLoc, AvgLoc, ChgSetSize
 
-            csvWriter.writeNext(new String[]{index, stringClass, "Size", "Age", "NumberOfAuthors", "Sum", "MaxChg", "AvgChg", "MaxLoc", "AvgLoc", "ChgSetSize"});
+            csvWriter.writeNext(new String[]{INDEX, STRINGCLASS, "Size", "Age", "NumberOfAuthors", "Sum", "MaxChg", "AvgChg", "MaxLoc", "AvgLoc", "ChgSetSize"});
             csvWriter.writeAll(finalList);
 
         } catch (IOException e) {
@@ -656,16 +655,16 @@ public class CalculateMetrics {
 
         //Project BOOKKEEPER
 
-        /*importProp("BOOKKEEPER");
+        importProp(PROJECT1);
 
-        createDirectory("BOOKKEEPER");
+        createDirectory(PROJECT1);
         cloneRepository();
         createCsvClass();
         executeBlame();
-        getVersionInfo("BOOKKEEPER");
-        writeCommit("BOOKKEEPER");
-        retrieveTicketAvFVFromJira("BOOKKEEPER");
-        retrieveTicketOnlyFVFromJira("BOOKKEEPER");
+        getVersionInfo(PROJECT1);
+        writeCommit(PROJECT1);
+        retrieveTicketAvFVFromJira(PROJECT1);
+        retrieveTicketOnlyFVFromJira(PROJECT1);
         blameCommit();
         blameJira();
         blameJiraFVOnly();
@@ -674,8 +673,8 @@ public class CalculateMetrics {
         determineOV(0, blameJiraIntersection, blameJiraIntersectionOV);
         //ticket without Affected Version
         determineOV(1, blameJiraIntersectionFVOnly, blameJiraIntersectionOVFVOnly);
-        double P = getProportion();
-        calculatePredictedIV(P);
+        double p = getProportion();
+        calculatePredictedIV(p);
         sumBuggyPredicted();
         createPrefinalCSV();
         retrieveLOCFromTrees();
@@ -686,22 +685,20 @@ public class CalculateMetrics {
         retrieveMaxAndAverageChgSetSize();
         createFinalCSV();
 
-*/
+
 
         //Project ZOOKEEPER
 
-        importProp("ZOOKEEPER");
+        importProp(PROJECT2);
 
-        createDirectory("ZOOKEEPER");
+        createDirectory(PROJECT2);
         cloneRepository();
         createCsvClass();
-        System.out.println("fatto");
-
         executeBlame();
-        getVersionInfo("ZOOKEEPER");
-        writeCommit("ZOOKEEPER");
-        retrieveTicketAvFVFromJira("ZOOKEEPER");
-        retrieveTicketOnlyFVFromJira("ZOOKEEPER");
+        getVersionInfo(PROJECT2);
+        writeCommit(PROJECT2);
+        retrieveTicketAvFVFromJira(PROJECT2);
+        retrieveTicketOnlyFVFromJira(PROJECT2);
         blameCommit();
         blameJira();
         blameJiraFVOnly();
@@ -710,8 +707,8 @@ public class CalculateMetrics {
         determineOV(0, blameJiraIntersection, blameJiraIntersectionOV);
         //ticket without Affected Version
         determineOV(1, blameJiraIntersectionFVOnly, blameJiraIntersectionOVFVOnly);
-        double P = getProportion();
-        calculatePredictedIV(P);
+        double p1 = getProportion();
+        calculatePredictedIV(p1);
         sumBuggyPredicted();
         createPrefinalCSV();
         retrieveLOCFromTrees();
