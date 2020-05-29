@@ -25,89 +25,108 @@ public class DateUtil{
 
     }
 
-    public String convertDate(String stringa){
+    public static String convertYear(String string){
 
         String result = null;
 
-        if(stringa != null){
+        if (string.contains("2011")) {
 
-            if (stringa.contains("2011")) {
+            result = "2011-";
 
-                result = "2011-";
+        } else if (string.contains("2012")) {
 
-            } else if (stringa.contains("2012")) {
+            result = "2012-";
 
-                result = "2012-";
+        } else if (string.contains("2013")) {
 
-            } else if (stringa.contains("2013")) {
+            result = "2013-";
 
-                result = "2013-";
+        } else if (string.contains("2014")) {
 
-            } else if (stringa.contains("2014")) {
-
-                result = "2014-";
-
-            }
-
-            if (stringa.contains("Jan")) {
-
-                result = result + "01-";
-
-            } else if (stringa.contains("Feb")) {
-
-                result = result + "02-";
-
-            } else if (stringa.contains("Mar")) {
-
-                result = result + "03-";
-
-            } else if (stringa.contains("Apr")) {
-
-                result = result + "04-";
-
-            } else if (stringa.contains("May")) {
-
-                result = result + "05-";
-
-            } else if (stringa.contains("Jun")) {
-
-                result = result + "06-";
-
-            } else if (stringa.contains("Jul")) {
-
-                result = result + "07-";
-
-            } else if (stringa.contains("Aug")) {
-
-                result = result + "08-";
-
-            } else if (stringa.contains("Sep")) {
-
-                result = result + "09-";
-
-            } else if (stringa.contains("Oct")) {
-
-                result = result + "10-";
-
-            } else if (stringa.contains("Nov")) {
-
-                result = result + "11-";
-
-            } else if (stringa.contains("Dec")) {
-
-                result = result + "12-";
-
-            }
-
-            result = result + stringa.substring(8, 10);
-
-        }else{
-
-            result = "none";
+            result = "2014-";
 
         }
 
         return result;
+
+    }
+
+    public static String convertMonth(String string, String previousResult){
+
+        String result = null;
+
+        if (string.contains("Jan")) {
+
+            result = previousResult + "01-";
+
+        } else if (string.contains("Feb")) {
+
+            result = previousResult + "02-";
+
+        } else if (string.contains("Mar")) {
+
+            result = previousResult + "03-";
+
+        } else if (string.contains("Apr")) {
+
+            result = previousResult + "04-";
+
+        } else if (string.contains("May")) {
+
+            result = previousResult + "05-";
+
+        } else if (string.contains("Jun")) {
+
+            result = previousResult + "06-";
+
+        } else if (string.contains("Jul")) {
+
+            result = previousResult + "07-";
+
+        } else if (string.contains("Aug")) {
+
+            result = previousResult + "08-";
+
+        } else if (string.contains("Sep")) {
+
+            result = previousResult + "09-";
+
+        } else if (string.contains("Oct")) {
+
+            result = previousResult + "10-";
+
+        } else if (string.contains("Nov")) {
+
+            result = previousResult + "11-";
+
+        } else if (string.contains("Dec")) {
+
+            result = previousResult + "12-";
+
+        }
+
+        return result;
+    }
+
+
+    public static String convertDate(String stringa){
+
+        String result = null;
+        String finalResult;
+
+        if(stringa != null){
+
+            result = convertMonth(stringa, convertYear(stringa));
+
+            finalResult = result + stringa.substring(8, 10);
+
+        }else{
+
+            finalResult = "none";
+
+        }
+
+        return finalResult;
 
     }
 
@@ -134,6 +153,5 @@ public class DateUtil{
         return result;
 
     }
-
 
 }
