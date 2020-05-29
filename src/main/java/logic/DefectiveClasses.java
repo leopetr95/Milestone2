@@ -287,6 +287,18 @@ public class DefectiveClasses {
 
     }
 
+    public static Map<Keys, String> contKey2(Map<Keys, String> map, Keys keys, int counter, int temp){
+
+        if(!map.containsKey(keys) && counter != temp){
+
+            map.put(keys, "NO");
+
+        }
+
+        return map;
+
+    }
+
     public static void createPreFinalCSV1(Map<Keys, String> finalmap){
 
         try(FileReader fileReader = new FileReader(getSumBuggyPredicted()); CSVReader csvReader = new CSVReader(fileReader);
@@ -407,17 +419,7 @@ public class DefectiveClasses {
 
                             Keys keys = new Keys(String.valueOf(i), strings1[1]);
 
-                            if(i != tempInt){
-
-                                contKey(map, keys);
-
-                            }
-
-                            /*if(!map.containsKey(keys) && i != tempInt) {
-
-                                map.put(keys, "NO");
-
-                            }*/
+                            contKey2(map, keys, i, tempInt);
 
                         }
 
