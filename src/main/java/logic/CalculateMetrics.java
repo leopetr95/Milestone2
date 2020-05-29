@@ -725,7 +725,7 @@ public class CalculateMetrics {
 
         importProp(PROJECT1);
 
-       /* createDirectory(PROJECT1);
+        createDirectory(PROJECT1);
         cloneRepository();
         createCsvClass();
         executeBlame();
@@ -765,9 +765,9 @@ public class CalculateMetrics {
         calculatePredictedIV(p);
         sumBuggyPredicted();
         createPreFinalCSV1(createPreFinalCSV2());
-        */
+
         retrieveLOCFromTrees();
-        /*
+
         retrieveLOCFromTreesWithIndexAndSum();
         writeMaxAvgLoc(retrieveMaxAndAverageLoc());
         calculateSizeAgeAuthors();
@@ -826,7 +826,7 @@ public class CalculateMetrics {
         calculateSizeAgeAuthors();
         calculateChgSetSize();
         retrieveMaxAndAverageChgSetSize();
-        writeFinal(writePrefinal(createFinalCSV()));*/
+        writeFinal(writePrefinal(createFinalCSV()));
 
     }
 

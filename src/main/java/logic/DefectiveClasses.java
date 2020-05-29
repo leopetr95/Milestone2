@@ -418,7 +418,7 @@ public class DefectiveClasses {
 
     }
 
-        public static void writePreFinal(Map<Keys, String> map, List<String[]> sumBuggy){
+    public static void writePreFinal(Map<Keys, String> map, List<String[]> sumBuggy){
 
         List<String[]> finalList = new ArrayList<>();
 
@@ -440,39 +440,5 @@ public class DefectiveClasses {
     }
 
 
-    public static void main(String[] args){
-
-        importProp("BOOKKEEPER");
-
-        getDefective();
-        //ticket con Affected Version
-        List<String[]> intervals = new ArrayList<>();
-
-        try(FileReader fileReader = new FileReader(getVersionInfo()); CSVReader csvReader = new CSVReader(fileReader);){
-
-            csvReader.readNext();
-            List<String[]> list = csvReader.readAll();
-
-            for(int i = 0; i < (list.size() / 2) ; i++){
-
-                intervals.add(new String[]{list.get(i)[3].substring(0,10), list.get(i+1)[3].substring(0,10)});
-
-            }
-
-        } catch (IOException e) {
-
-            e.printStackTrace();
-
-        }
-
-        determineOV(0, getBlameJiraIntersection(), getBlameJiraIntersectionOV(), intervals);
-        //ticket senza Affected Version
-        determineOV(1, getBlameJiraIntersectionFVOnly(), getBlameJiraIntersectionOVFVOnly(), intervals);
-        double p = getProportion();
-        calculatePredictedIV(p);
-        sumBuggyPredicted();
-        createPreFinalCSV1(createPreFinalCSV2());
-
-    }
 
 }
