@@ -407,11 +407,17 @@ public class DefectiveClasses {
 
                             Keys keys = new Keys(String.valueOf(i), strings1[1]);
 
-                            if(!map.containsKey(keys) && i != tempInt) {
+                            if(i != tempInt){
+
+                                contKey(map, keys);
+
+                            }
+
+                            /*if(!map.containsKey(keys) && i != tempInt) {
 
                                 map.put(keys, "NO");
 
-                            }
+                            }*/
 
                         }
 
