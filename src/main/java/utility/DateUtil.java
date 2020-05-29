@@ -108,12 +108,73 @@ public class DateUtil{
 
             default:
 
-                result = null;
+                result = secondConvert(string, previousResult);
 
         }
 
         return result;
     }
+
+    public String secondConvert(String string, String previousResult){
+
+        String result;
+
+        switch(string.substring(4, 7)){
+
+            case "May":
+                result = previousResult + "05-";
+                break;
+            case "Jun":
+                result = previousResult + "06-";
+                break;
+            case "Jul":
+                result = previousResult + "07-";
+                break;
+            case "Aug":
+                result = previousResult + "08-";
+                break;
+
+            default:
+
+                result = thirdConvert(string, previousResult);
+
+        }
+
+        return result;
+
+    }
+
+    public String thirdConvert(String string, String previousResult){
+
+        String result;
+
+        switch(string.substring(4, 7)) {
+
+            case "Sep":
+                result = previousResult + "09-";
+                break;
+            case "Oct":
+                result = previousResult + "10-";
+                break;
+            case "Nov":
+                result = previousResult + "11-";
+                break;
+            case "Dec":
+                result = previousResult + "12-";
+                break;
+            default:
+                result = null;
+        }
+
+        return result;
+
+    }
+
+
+
+
+
+
 
     public String convertDate(String string){
 
@@ -157,6 +218,14 @@ public class DateUtil{
         }
 
         return result;
+
+    }
+
+
+    public static void main(String[] args){
+
+        DateUtil dateUtil = new DateUtil();
+        System.out.println(dateUtil.convertDate("Sat Dec 19 00:00:00 CET 2013"));
 
     }
 
