@@ -159,6 +159,7 @@ public class CalculateMetrics {
 
                     if ((trees.get(i)[0].equals(tree[0])) && dateTreeJ.after(dateTreeI)) {
 
+
                         ObjectReader reader = repository.newObjectReader();
                         CanonicalTreeParser oldTree = new CanonicalTreeParser();
                         ObjectId oldCommit = ObjectId.fromString(trees.get(i)[3].substring(5, trees.get(i)[3].indexOf("-") - 1));
@@ -172,6 +173,7 @@ public class CalculateMetrics {
                         diffFormatter.setRepository(git.getRepository());
                         diffFormatter.setContext(0);
                         List<DiffEntry> entries = diffFormatter.scan(newTreeIter, oldTree);
+
 
                         for (DiffEntry entry : entries) {
 
@@ -204,6 +206,7 @@ public class CalculateMetrics {
         }
 
     }
+
 
     /*
     * Compute LOC added and add index to trees
@@ -579,7 +582,7 @@ public class CalculateMetrics {
 
                 if(map.containsKey(keys)){
 
-                    SubValues subValues = new SubValues(map.get(keys).getSubValues().getString1(), stringOutLocIndex[6], map.get(keys).getSubValues().getString3(), map.get(keys).getSubValues().getString4(), map.get(keys).getSubValues().getString5(), map.get(keys).getSubValues().getString6(), map.get(keys).getSubValues().getString7());
+                    SubValues subValues = new SubValues(map.get(keys).getSubValues().getSubString1(), stringOutLocIndex[6], map.get(keys).getSubValues().getSubString3(), map.get(keys).getSubValues().getSubString4(), map.get(keys).getSubValues().getSubString5(), map.get(keys).getSubValues().getSubString6(), map.get(keys).getSubValues().getSubString7());
 
                     //Size, Age, SubValues
                     Values values = new Values(map.get(keys).getString1(), map.get(keys).getString2(), subValues);
@@ -596,7 +599,7 @@ public class CalculateMetrics {
 
                 if(map.containsKey(keys)){
 
-                    SubValues subValues = new SubValues(map.get(keys).getSubValues().getString1(), map.get(keys).getSubValues().getString2(), stringMaxAvgChg[2], stringMaxAvgChg[3], map.get(keys).getSubValues().getString5(), map.get(keys).getSubValues().getString6(), map.get(keys).getSubValues().getString7());
+                    SubValues subValues = new SubValues(map.get(keys).getSubValues().getSubString1(), map.get(keys).getSubValues().getSubString2(), stringMaxAvgChg[2], stringMaxAvgChg[3], map.get(keys).getSubValues().getSubString5(), map.get(keys).getSubValues().getSubString6(), map.get(keys).getSubValues().getSubString7());
 
                     //Size, Age, SubValues
                     Values values = new Values(map.get(keys).getString1(), map.get(keys).getString2(),subValues);
@@ -613,7 +616,7 @@ public class CalculateMetrics {
 
                 if(map.containsKey(keys)){
 
-                    SubValues subValues = new SubValues( map.get(keys).getSubValues().getString1(), map.get(keys).getSubValues().getString2(), map.get(keys).getSubValues().getString3(), map.get(keys).getSubValues().getString4(), stringMaxAverage[2], stringMaxAverage[3], map.get(keys).getSubValues().getString7());
+                    SubValues subValues = new SubValues( map.get(keys).getSubValues().getSubString1(), map.get(keys).getSubValues().getSubString2(), map.get(keys).getSubValues().getSubString3(), map.get(keys).getSubValues().getSubString4(), stringMaxAverage[2], stringMaxAverage[3], map.get(keys).getSubValues().getSubString7());
                     Values values = new Values(map.get(keys).getString1(), map.get(keys).getString2(),subValues);
                     map.replace(keys, values);
 
@@ -627,7 +630,7 @@ public class CalculateMetrics {
 
                 if(map.containsKey(keys)){
 
-                    SubValues subValues = new SubValues(map.get(keys).getSubValues().getString1(), map.get(keys).getSubValues().getString2(),map.get(keys).getSubValues().getString3(), map.get(keys).getSubValues().getString4(), map.get(keys).getSubValues().getString5(), map.get(keys).getSubValues().getString6(), stringChgSetSize[2]);
+                    SubValues subValues = new SubValues(map.get(keys).getSubValues().getSubString1(), map.get(keys).getSubValues().getSubString2(),map.get(keys).getSubValues().getSubString3(), map.get(keys).getSubValues().getSubString4(), map.get(keys).getSubValues().getSubString5(), map.get(keys).getSubValues().getSubString6(), stringChgSetSize[2]);
                     Values values = new Values(map.get(keys).getString1(), map.get(keys).getString2(), subValues);
                     map.replace(keys, values);
 
@@ -658,8 +661,8 @@ public class CalculateMetrics {
 
                 if(map.containsKey(keys)){
 
-                    SubValues subValues = new SubValues(map.get(keys).getSubValues().getString2(), map.get(keys).getSubValues().getString3(), map.get(keys).getSubValues().getString4(), map.get(keys).getSubValues().getString5(), map.get(keys).getSubValues().getString6(), map.get(keys).getSubValues().getString7(), stringPreFinal[2]);
-                    Values values = new Values(map.get(keys).getString1(), map.get(keys).getString2(), map.get(keys).getSubValues().getString1(), subValues);
+                    SubValues subValues = new SubValues(map.get(keys).getSubValues().getSubString2(), map.get(keys).getSubValues().getSubString3(), map.get(keys).getSubValues().getSubString4(), map.get(keys).getSubValues().getSubString5(), map.get(keys).getSubValues().getSubString6(), map.get(keys).getSubValues().getSubString7(), stringPreFinal[2]);
+                    Values values = new Values(map.get(keys).getString1(), map.get(keys).getString2(), map.get(keys).getSubValues().getSubString1(), subValues);
 
                     map.replace(keys, values);
 
@@ -687,7 +690,7 @@ public class CalculateMetrics {
 
             for(Map.Entry<Keys, Values> entry: map.entrySet()){
 
-                if(entry.getValue().getSubValues().getString7()!= null){
+                if(entry.getValue().getSubValues().getSubString7()!= null){
 
                     finalList.add(new String[]{
                             entry.getKey().getKey1().toString(),
@@ -695,13 +698,13 @@ public class CalculateMetrics {
                             entry.getValue().getString1(),
                             entry.getValue().getString2(),
                             entry.getValue().getString3(),
-                            entry.getValue().getSubValues().getString1(),
-                            entry.getValue().getSubValues().getString2(),
-                            entry.getValue().getSubValues().getString3(),
-                            entry.getValue().getSubValues().getString4(),
-                            entry.getValue().getSubValues().getString5(),
-                            entry.getValue().getSubValues().getString6(),
-                            entry.getValue().getSubValues().getString7()});
+                            entry.getValue().getSubValues().getSubString1(),
+                            entry.getValue().getSubValues().getSubString2(),
+                            entry.getValue().getSubValues().getSubString3(),
+                            entry.getValue().getSubValues().getSubString4(),
+                            entry.getValue().getSubValues().getSubString5(),
+                            entry.getValue().getSubValues().getSubString6(),
+                            entry.getValue().getSubValues().getSubString7()});
 
                 }
 
@@ -722,7 +725,7 @@ public class CalculateMetrics {
 
         importProp(PROJECT1);
 
-        createDirectory(PROJECT1);
+       /* createDirectory(PROJECT1);
         cloneRepository();
         createCsvClass();
         executeBlame();
@@ -762,7 +765,9 @@ public class CalculateMetrics {
         calculatePredictedIV(p);
         sumBuggyPredicted();
         createPreFinalCSV1(createPreFinalCSV2());
+        */
         retrieveLOCFromTrees();
+        /*
         retrieveLOCFromTreesWithIndexAndSum();
         writeMaxAvgLoc(retrieveMaxAndAverageLoc());
         calculateSizeAgeAuthors();
@@ -821,7 +826,7 @@ public class CalculateMetrics {
         calculateSizeAgeAuthors();
         calculateChgSetSize();
         retrieveMaxAndAverageChgSetSize();
-        writeFinal(writePrefinal(createFinalCSV()));
+        writeFinal(writePrefinal(createFinalCSV()));*/
 
     }
 

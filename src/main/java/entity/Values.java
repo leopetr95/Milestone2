@@ -91,8 +91,6 @@ public class Values {
         this.temp = temp;
     }
 
-
-
     public String getString1() {
 
         return string1;
