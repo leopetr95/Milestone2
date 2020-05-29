@@ -150,6 +150,8 @@ public class CalculateMetrics {
 
             trees = csvReader.readAll();
 
+            int[] array;
+
             for(int i = 0; i < trees.size(); i++){
 
                 for (String[] tree : trees) {
@@ -174,24 +176,9 @@ public class CalculateMetrics {
                         diffFormatter.setContext(0);
                         List<DiffEntry> entries = diffFormatter.scan(newTreeIter, oldTree);
 
+                        array = cicle(entries, diffFormatter);
 
-                        for (DiffEntry entry : entries) {
-
-                            for (Edit edit : diffFormatter.toFileHeader(entry).toEditList()) {
-
-                                linesDeleted = linesDeleted + edit.getEndA() - edit.getBeginA();
-                                linesAdded = linesAdded + edit.getEndB() - edit.getBeginB();
-                                linesTouched = linesAdded + linesDeleted;
-
-                            }
-
-                        }
-
-                        out.add(new String[]{tree[2], trees.get(i)[0], Integer.toString(linesAdded), Integer.toString(linesDeleted), Integer.toString(linesTouched)});
-
-                        linesAdded = 0;
-                        linesDeleted = 0;
-                        linesTouched = 0;
+                        out.add(new String[]{tree[2], trees.get(i)[0], Integer.toString(array[0]), Integer.toString(array[1]), Integer.toString(array[2])});
 
                     }
 
@@ -206,6 +193,36 @@ public class CalculateMetrics {
         }
 
     }
+
+    private static int[] cicle(List<DiffEntry> list, DiffFormatter diffFormatter){
+
+        int[] array = new int[3];
+
+        try {
+
+            for(DiffEntry diffEntry: list){
+
+                for(Edit edit: diffFormatter.toFileHeader(diffEntry).toEditList()){
+
+                    array[0] = array[0] + edit.getEndA() - edit.getBeginA();
+                    array[1] = array[1] + edit.getEndB() - edit.getBeginB();
+                    array[2] = array[0] + array[1];
+
+                }
+
+            }
+
+
+        }catch (Exception e){
+
+            e.printStackTrace();
+
+        }
+
+        return array;
+
+    }
+
 
 
     /*

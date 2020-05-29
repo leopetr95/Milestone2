@@ -54,6 +54,7 @@ public class DefectiveClasses {
             for(String[] strings: jira){
 
                 result = dateUtil.betweenInterval(intervals, dateUtil.stringToDate(strings[2]));
+                System.out.println(result);
                 result = dateUtil.convertDate(result);
 
                 for(String[] string: versions){
