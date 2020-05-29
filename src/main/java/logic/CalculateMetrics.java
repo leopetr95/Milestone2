@@ -761,7 +761,7 @@ public class CalculateMetrics {
         double p = getProportion();
         calculatePredictedIV(p);
         sumBuggyPredicted();
-        createPrefinalCSV();
+        createPreFinalCSV1(createPreFinalCSV2());
         retrieveLOCFromTrees();
         retrieveLOCFromTreesWithIndexAndSum();
         writeMaxAvgLoc(retrieveMaxAndAverageLoc());
@@ -814,7 +814,7 @@ public class CalculateMetrics {
         double p1 = getProportion();
         calculatePredictedIV(p1);
         sumBuggyPredicted();
-        createPrefinalCSV();
+        createPreFinalCSV1(createPreFinalCSV2());
         retrieveLOCFromTrees();
         retrieveLOCFromTreesWithIndexAndSum();
         writeMaxAvgLoc(retrieveMaxAndAverageLoc());

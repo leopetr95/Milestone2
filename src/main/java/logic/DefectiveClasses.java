@@ -3,7 +3,6 @@ package logic;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import entity.Keys;
-import entity.Values;
 import utility.DateUtil;
 
 import java.io.*;
@@ -84,11 +83,13 @@ public class DefectiveClasses {
                 if(flag == 0){
 
                     jiraOV.add(new String[]{strings[0], strings[1], strings[2], strings[3], fixVersionSupportString, affectedVersionSupportString, realResult});
-                    break;
+
+                }else{
+
+                    jiraOV.add(new String[]{strings[0], strings[1], strings[2], strings[3], fixVersionSupportString, realResult});
 
                 }
 
-                jiraOV.add(new String[]{strings[0], strings[1], strings[2], strings[3], fixVersionSupportString, realResult});
 
             }
 
@@ -101,6 +102,7 @@ public class DefectiveClasses {
         }
 
     }
+
 
     public static double getProportion(){
 
@@ -273,7 +275,7 @@ public class DefectiveClasses {
 
     }
 
-    public static void createPrefinalCSV(){
+    public static void createPreFinalCSV1(Map<Keys, String> finalmap){
 
         try(FileReader fileReader = new FileReader(getSumBuggyPredicted()); CSVReader csvReader = new CSVReader(fileReader);
         FileReader fileReader1 = new FileReader(getCsvClassPath()); CSVReader csvReader1 = new CSVReader(fileReader1);
@@ -297,9 +299,6 @@ public class DefectiveClasses {
 
             }
 
-            Map<Keys, String> finalmap = new HashMap<>();
-
-            List<String[]> finalList = new ArrayList<>();
 
             for(String[] strings: sumBuggy){
 
@@ -321,7 +320,8 @@ public class DefectiveClasses {
 
                     }
 
-                    if(versions2.contains(strings[0])){
+
+                    /*if(versions2.contains(strings[0])){
 
                         String tempString = strings[0];
                         int tempInt = Integer.parseInt(tempString);
@@ -338,7 +338,7 @@ public class DefectiveClasses {
 
                         }
 
-                    }
+                    }*/
 
                 }
 
@@ -354,7 +354,68 @@ public class DefectiveClasses {
 
     }
 
-    public static void writePreFinal(Map<Keys, String> map, List<String[]> sumBuggy){
+    public static Map<Keys, String> createPreFinalCSV2() {
+
+        Map<Keys, String> map = new HashMap<>();
+
+        try (FileReader fileReader = new FileReader(getSumBuggyPredicted()); CSVReader csvReader = new CSVReader(fileReader);
+             FileReader fileReader1 = new FileReader(getCsvClassPath()); CSVReader csvReader1 = new CSVReader(fileReader1);
+             FileReader fileReader2 = new FileReader(getVersionInfo()); CSVReader csvReader2 = new CSVReader(fileReader2);
+        ) {
+
+            //Salto gli header
+            csvReader.readNext();
+            csvReader1.readNext();
+
+            List<String[]> sumBuggy = csvReader.readAll();
+            List<String[]> classes = csvReader1.readAll();
+            List<String[]> versions = csvReader2.readAll();
+
+            List<String> versions2 = new ArrayList<>();
+
+            //Prendo solo la prima metà delle versioni
+            for (int i = 0; i < versions.size() / 2; i++) {
+
+                versions2.add(versions.get(i)[0]);
+
+            }
+
+            for(String[] strings:sumBuggy){
+
+                for(String[] strings1: classes){
+
+                    if(versions2.contains(strings[0])){
+
+                        String tempString = strings[0];
+                        int tempInt = Integer.parseInt(tempString);
+
+                        for(int i = 1; i < versions2.size(); i++){
+
+                            Keys keys = new Keys(String.valueOf(i), strings1[1]);
+
+                            if(!map.containsKey(keys) && i != tempInt) {
+
+                                map.put(keys, "NO");
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return map;
+
+    }
+
+        public static void writePreFinal(Map<Keys, String> map, List<String[]> sumBuggy){
 
         List<String[]> finalList = new ArrayList<>();
 
@@ -407,7 +468,7 @@ public class DefectiveClasses {
         double p = getProportion();
         calculatePredictedIV(p);
         sumBuggyPredicted();
-        createPrefinalCSV();
+        createPreFinalCSV1(createPreFinalCSV2());
 
     }
 
