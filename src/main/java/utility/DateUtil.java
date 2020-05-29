@@ -53,7 +53,7 @@ public class DateUtil{
 
     public String convertMonth(String string, String previousResult){
 
-        String result = null;
+        String result;
 
         switch (string.substring(4, 7)){
 
@@ -93,6 +93,10 @@ public class DateUtil{
             case "Dec":
                 result = previousResult + "12-";
                 break;
+
+            default:
+
+                result = null;
 
         }
 
@@ -143,6 +147,6 @@ public class DateUtil{
         return result;
 
     }
-    
+
 
 }
