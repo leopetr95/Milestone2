@@ -45,6 +45,26 @@ public class DateUtil{
 
             result = "2014-";
 
+        }else if (string.contains("2015")) {
+
+            result = "2015-";
+
+        }else if (string.contains("2016")) {
+
+            result = "2016-";
+
+        }else if (string.contains("2017")) {
+
+            result = "2017-";
+
+        }else if (string.contains("2018")) {
+
+            result = "2018-";
+
+        }else if (string.contains("2019")) {
+
+            result = "2019-";
+
         }
 
         return result;
@@ -74,9 +94,6 @@ public class DateUtil{
                 break;
             case "Jun":
                 result = previousResult + "06-";
-                break;
-            case "Jul":
-                result = previousResult + "07-";
                 break;
 
             default:
