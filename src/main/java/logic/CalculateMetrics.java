@@ -128,10 +128,6 @@ public class CalculateMetrics {
         List<String[]> trees;
         List<String[]> out = new ArrayList<>();
 
-        int linesAdded = 0;
-        int linesDeleted = 0;
-        int linesTouched = 0;
-
         final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
         Git git = new Git(new FileRepository(getcPath()));
