@@ -343,35 +343,9 @@ public class DefectiveClasses {
 
                             contKey(finalmap,keys);
 
-                            /*if(!finalmap.containsKey(keys)){
-
-                                finalmap.put(keys, "NO");
-
-                            }*/
-
                         }
 
                     }
-
-
-                    /*if(versions2.contains(strings[0])){
-
-                        String tempString = strings[0];
-                        int tempInt = Integer.parseInt(tempString);
-
-                        for(int i = 1; i < versions2.size(); i++){
-
-                            Keys keys = new Keys(String.valueOf(i), strings1[1]);
-
-                            if(!finalmap.containsKey(keys) && i != tempInt) {
-
-                                finalmap.put(keys, "NO");
-
-                            }
-
-                        }
-
-                    }*/
 
                 }
 

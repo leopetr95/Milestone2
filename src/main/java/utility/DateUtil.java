@@ -25,7 +25,7 @@ public class DateUtil{
 
     }
 
-    public static String convertYear(String string){
+    public String convertYear(String string){
 
         String result = null;
 
@@ -51,7 +51,7 @@ public class DateUtil{
 
     }
 
-    public static String convertMonth(String string, String previousResult){
+    public String convertMonth(String string, String previousResult){
 
         String result = null;
 
@@ -108,17 +108,16 @@ public class DateUtil{
         return result;
     }
 
+    public String convertDate(String string){
 
-    public static String convertDate(String stringa){
-
-        String result = null;
+        String result;
         String finalResult;
 
-        if(stringa != null){
+        if(string != null){
 
-            result = convertMonth(stringa, convertYear(stringa));
+            result = convertMonth(string, convertYear(string));
 
-            finalResult = result + stringa.substring(8, 10);
+            finalResult = result + string.substring(8, 10);
 
         }else{
 
