@@ -117,30 +117,32 @@ public class DateUtil{
 
     public String secondConvert(String string, String previousResult){
 
-        String result;
+        String out;
 
-        switch(string.substring(4, 7)){
+        String string1 = string.substring(4, 7);
+
+        switch(string1){
 
             case "May":
-                result = previousResult + "05-";
+                out = previousResult + "05-";
                 break;
             case "Jun":
-                result = previousResult + "06-";
+                out = previousResult + "06-";
                 break;
             case "Jul":
-                result = previousResult + "07-";
+                out = previousResult + "07-";
                 break;
             case "Aug":
-                result = previousResult + "08-";
+                out = previousResult + "08-";
                 break;
 
             default:
 
-                result = thirdConvert(string, previousResult);
+                out = thirdConvert(string, previousResult);
 
         }
 
-        return result;
+        return out;
 
     }
 
@@ -169,12 +171,6 @@ public class DateUtil{
         return result;
 
     }
-
-
-
-
-
-
 
     public String convertDate(String string){
 
