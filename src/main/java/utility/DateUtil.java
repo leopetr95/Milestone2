@@ -55,6 +55,49 @@ public class DateUtil{
 
         String result = null;
 
+        switch (string.substring(4, 7)){
+
+            case "Jan":
+
+                result = previousResult + "01-";
+                break;
+
+            case "Feb":
+                result = previousResult + "02-";
+                break;
+            case "Mar":
+                result = previousResult + "03-";
+                break;
+            case "Apr":
+                result = previousResult + "04-";
+                break;
+            case "May":
+                result = previousResult + "05-";
+                break;
+            case "Jun":
+                result = previousResult + "06-";
+                break;
+            case "Jul":
+                result = previousResult + "07-";
+                break;
+            case "Aug":
+                result = previousResult + "08-";
+                break;
+            case "Sep":
+                result = previousResult + "09-";
+                break;
+            case "Oct":
+                result = previousResult + "10-";
+                break;
+            case "Nov":
+                result = previousResult + "11-";
+                break;
+            case "Dec":
+                result = previousResult + "12-";
+                break;
+
+        }
+        /*
         if (string.contains("Jan")) {
 
             result = previousResult + "01-";
@@ -103,7 +146,7 @@ public class DateUtil{
 
             result = previousResult + "12-";
 
-        }
+        }*/
 
         return result;
     }
@@ -150,6 +193,14 @@ public class DateUtil{
         }
 
         return result;
+
+    }
+
+    public static void main(String[] args){
+
+        DateUtil dateUtil = new DateUtil();
+        System.out.println(dateUtil.convertDate("Sat Jan 19 00:00:00 CET 2013"));
+
 
     }
 
