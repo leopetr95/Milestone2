@@ -65,6 +65,22 @@ public class DateUtil{
 
             result = "2019-";
 
+        }else if (string.contains("2020")) {
+
+            result = "2020-";
+
+        }else if (string.contains("2010")) {
+
+            result = "2010-";
+
+        }else if (string.contains("2009")) {
+
+            result = "2009-";
+
+        }else if (string.contains("2008")) {
+
+            result = "2008-";
+
         }
 
         return result;
@@ -88,12 +104,6 @@ public class DateUtil{
                 break;
             case "Apr":
                 result = previousResult + "04-";
-                break;
-            case "May":
-                result = previousResult + "05-";
-                break;
-            case "Jun":
-                result = previousResult + "06-";
                 break;
 
             default:
