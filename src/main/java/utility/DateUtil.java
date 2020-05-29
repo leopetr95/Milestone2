@@ -29,57 +29,25 @@ public class DateUtil{
 
         String result = null;
 
-        if (string.contains("2011")) {
+        if(string.contains("2008")){
 
-            result = "2011-";
+            result = "2008-";
 
-        } else if (string.contains("2012")) {
-
-            result = "2012-";
-
-        } else if (string.contains("2013")) {
-
-            result = "2013-";
-
-        } else if (string.contains("2014")) {
-
-            result = "2014-";
-
-        }else if (string.contains("2015")) {
-
-            result = "2015-";
-
-        }else if (string.contains("2016")) {
-
-            result = "2016-";
-
-        }else if (string.contains("2017")) {
-
-            result = "2017-";
-
-        }else if (string.contains("2018")) {
-
-            result = "2018-";
-
-        }else if (string.contains("2019")) {
-
-            result = "2019-";
-
-        }else if (string.contains("2020")) {
-
-            result = "2020-";
-
-        }else if (string.contains("2010")) {
-
-            result = "2010-";
-
-        }else if (string.contains("2009")) {
+        }else if(string.contains("2009")){
 
             result = "2009-";
 
-        }else if (string.contains("2008")) {
+        }else {
 
-            result = "2008-";
+            for (int i = 10; i < 21; i++) {
+
+                if(string.contains("20" + String.valueOf(i))) {
+
+                    result = "20" + String.valueOf(i) + "-";
+
+                }
+
+            }
 
         }
 
@@ -225,11 +193,10 @@ public class DateUtil{
 
     }
 
-
     public static void main(String[] args){
 
         DateUtil dateUtil = new DateUtil();
-        System.out.println(dateUtil.convertDate("Sat Dec 19 00:00:00 CET 2013"));
+        System.out.println(dateUtil.convertDate("Sat Dec 19 00:00:00 CET 2018"));
 
     }
 
