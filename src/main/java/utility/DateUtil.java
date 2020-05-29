@@ -78,21 +78,6 @@ public class DateUtil{
             case "Jul":
                 result = previousResult + "07-";
                 break;
-            case "Aug":
-                result = previousResult + "08-";
-                break;
-            case "Sep":
-                result = previousResult + "09-";
-                break;
-            case "Oct":
-                result = previousResult + "10-";
-                break;
-            case "Nov":
-                result = previousResult + "11-";
-                break;
-            case "Dec":
-                result = previousResult + "12-";
-                break;
 
             default:
 
