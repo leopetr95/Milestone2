@@ -80,16 +80,7 @@ public class DefectiveClasses {
 
                 }
 
-                if(flag == 0){
-
-                    jiraOV.add(new String[]{strings[0], strings[1], strings[2], strings[3], fixVersionSupportString, affectedVersionSupportString, realResult});
-
-                }else{
-
-                    jiraOV.add(new String[]{strings[0], strings[1], strings[2], strings[3], fixVersionSupportString, realResult});
-
-                }
-
+                jiraOVAdd(flag, jiraOV, strings, fixVersionSupportString, affectedVersionSupportString, realResult);
 
             }
 
@@ -100,6 +91,22 @@ public class DefectiveClasses {
             e.printStackTrace();
 
         }
+
+    }
+
+    public static List<String[]> jiraOVAdd(int flag, List<String[]> list, String[] strings, String fixVersionSupportString, String affectedVersionSupportString, String realResult){
+
+        if(flag == 0){
+
+            list.add(new String[]{strings[0], strings[1], strings[2], strings[3], fixVersionSupportString, affectedVersionSupportString, realResult});
+
+        }else{
+
+            list.add(new String[]{strings[0], strings[1], strings[2], strings[3], fixVersionSupportString, realResult});
+
+        }
+
+        return list;
 
     }
 
