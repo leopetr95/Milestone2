@@ -22,6 +22,7 @@ public class DefectiveClasses {
     private static final String STRINGOPENVERSION = "OpenVersion";
     private static final String STRINGTICKET = "Ticket";
 
+    private DefectiveClasses(){}
 
     public static void determineOV(int flag, String blameJiraIntersectionPath, String blameJiraIntersectionOVPath, List<String[]> intervals){
 
@@ -110,7 +111,6 @@ public class DefectiveClasses {
 
     }
 
-
     public static double getProportion(){
 
         double p = 0;
@@ -189,7 +189,6 @@ public class DefectiveClasses {
         }
 
     }
-
 
     //Scrivo in un file csv le classi difettive
     public static void getDefective(){
@@ -365,18 +364,12 @@ public class DefectiveClasses {
 
         Map<Keys, String> map = new HashMap<>();
 
-        try (FileReader fileReader = new FileReader(getSumBuggyPredicted()); CSVReader csvReader = new CSVReader(fileReader);
-             FileReader fileReader1 = new FileReader(getCsvClassPath()); CSVReader csvReader1 = new CSVReader(fileReader1);
-             FileReader fileReader2 = new FileReader(getVersionInfo()); CSVReader csvReader2 = new CSVReader(fileReader2);
+        try (FileReader fR = new FileReader(getSumBuggyPredicted()); CSVReader csvR = new CSVReader(fR);
+             FileReader fR1 = new FileReader(getCsvClassPath()); CSVReader csvR1 = new CSVReader(fR1);
+             FileReader fR2 = new FileReader(getVersionInfo()); CSVReader csvR2 = new CSVReader(fR2);
         ) {
 
-            //Salto gli header
-            csvReader.readNext();
-            csvReader1.readNext();
-
-            List<String[]> sumBuggy = csvReader.readAll();
-            List<String[]> classes = csvReader1.readAll();
-            List<String[]> versions = csvReader2.readAll();
+            List<String[]> versions = csvR2.readAll();
 
             List<String> versions2 = new ArrayList<>();
 
@@ -386,6 +379,14 @@ public class DefectiveClasses {
                 versions2.add(versions.get(i)[0]);
 
             }
+
+            //Salto gli header
+            csvR.readNext();
+            csvR1.readNext();
+
+            List<String[]> sumBuggy = csvR.readAll();
+            List<String[]> classes = csvR1.readAll();
+
 
             for(String[] strings:sumBuggy){
 
