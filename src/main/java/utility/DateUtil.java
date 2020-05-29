@@ -149,23 +149,31 @@ public class DateUtil{
     public String thirdConvert(String string, String previousResult){
 
         String result;
+        String string1 = string.substring(4, 7);
 
-        switch(string.substring(4, 7)) {
+        if(string1.equals("Sep")){
 
-            case "Sep":
-                result = previousResult + "09-";
-                break;
-            case "Oct":
-                result = previousResult + "10-";
-                break;
-            case "Nov":
-                result = previousResult + "11-";
-                break;
-            case "Dec":
-                result = previousResult + "12-";
-                break;
-            default:
-                result = null;
+            result = previousResult + "09-";
+
+        }else if(string1.equals("Oct")){
+
+            result = previousResult + "10-";
+
+
+        }else if(string1.equals("Nov")){
+
+            result = previousResult + "11-";
+
+
+        }else if(string1.equals("Dec")){
+
+            result = previousResult + "12-";
+
+
+        }else{
+
+            result = null;
+
         }
 
         return result;
