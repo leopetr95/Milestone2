@@ -41,9 +41,9 @@ public class DateUtil{
 
             for (int i = 10; i < 21; i++) {
 
-                if(string.contains("20" + String.valueOf(i))) {
+                if(string.contains("20" + i)) {
 
-                    result = "20" + String.valueOf(i) + "-";
+                    result = "20" + i + "-";
 
                 }
 
@@ -192,13 +192,5 @@ public class DateUtil{
         return result;
 
     }
-
-    public static void main(String[] args){
-
-        DateUtil dateUtil = new DateUtil();
-        System.out.println(dateUtil.convertDate("Sat Dec 19 00:00:00 CET 2018"));
-
-    }
-
 
 }
