@@ -44,22 +44,26 @@ public class Weka {
 
         int numAttr = training.numAttributes();
 
+        int intArray[] = new int[3];
+        intArray[0] = counter;
+        intArray[1] = sizeFinalCSV;
+        intArray[2] = numAttr;
 
         if(mode == 0){ //NoSampling
 
-            noSampling(classifier, training, testing, counter, defectiveInTraining, defectiveInTesting, sizeFinalCSV, numAttr, project);
+            noSampling(classifier, training, testing, defectiveInTraining, defectiveInTesting, project, intArray);
 
         }else if(mode == 1){ //UnderSampling
 
-            underSampling(classifier, training, testing, counter, defectiveInTraining, defectiveInTesting, sizeFinalCSV, numAttr, project);
+            underSampling(classifier, training, testing, defectiveInTraining, defectiveInTesting, project, intArray);
 
         }else if(mode == 2){//OverSampling
 
-            overSampling(classifier, training, testing, counter,  numAttr, defectiveInTraining, defectiveInTesting, sizeFinalCSV, project);
+            overSampling(classifier, training, testing, defectiveInTraining, defectiveInTesting, project, intArray);
 
         }else{//Smote
 
-            smote(classifier, training, testing, counter, defectiveInTraining, defectiveInTesting, sizeFinalCSV, numAttr, project);
+            smote(classifier, training, testing, defectiveInTraining, defectiveInTesting, project, intArray);
 
         }
 
@@ -87,7 +91,11 @@ public class Weka {
 
     }
 
-    public static void noSampling(Classifier classifier, Instances training, Instances testing, int counter, double defectiveInTraining, double defectiveInTesting, int sizeFinalCSV, int numAttr, String project) throws Exception {
+    public static void noSampling(Classifier classifier, Instances training, Instances testing, double defectiveInTraining, double defectiveInTesting, String project, int[] intArray) throws Exception {
+
+        int counter = intArray[0];
+        int sizeFinalCSV = intArray[1];
+        int numAttr = intArray[2];
 
         training.setClassIndex(numAttr-1);
         testing.setClassIndex(numAttr-1);
@@ -113,7 +121,11 @@ public class Weka {
 
     }
 
-    public static void underSampling(Classifier classifier, Instances training, Instances testing, int counter, double defectiveInTraining, double defectiveInTesting, int sizeFinalCSV, int numAttr, String project) throws Exception {
+    public static void underSampling(Classifier classifier, Instances training, Instances testing, double defectiveInTraining, double defectiveInTesting, String project, int[] intArray) throws Exception {
+
+        int counter = intArray[0];
+        int sizeFinalCSV = intArray[1];
+        int numAttr = intArray[2];
 
         training.setClassIndex(numAttr-1);
         testing.setClassIndex(numAttr-1);
@@ -150,7 +162,11 @@ public class Weka {
 
     }
 
-    public static void overSampling(Classifier classifier, Instances training, Instances testing, int counter, int numAttr, double defectiveInTraining, double defectiveInTesting, int sizeFinalCSV, String project) throws Exception {
+    public static void overSampling(Classifier classifier, Instances training, Instances testing, double defectiveInTraining, double defectiveInTesting, String project, int[] intArray) throws Exception {
+
+        int counter = intArray[0];
+        int sizeFinalCSV = intArray[1];
+        int numAttr = intArray[2];
 
         training.setClassIndex(numAttr - 1);
         testing.setClassIndex(numAttr - 1);
@@ -193,7 +209,11 @@ public class Weka {
 
     }
 
-    public static void smote(Classifier classifier, Instances training, Instances testing, int counter, double defectiveInTraining, double defectiveInTesting, int sizeFinalCSV, int numAttr, String project) throws Exception {
+    public static void smote(Classifier classifier, Instances training, Instances testing, double defectiveInTraining, double defectiveInTesting, String project, int[] intArray) throws Exception {
+
+        int counter = intArray[0];
+        int sizeFinalCSV = intArray[1];
+        int numAttr = intArray[2];
 
         training.setClassIndex(numAttr-1);
         testing.setClassIndex(numAttr-1);
