@@ -27,6 +27,16 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static milestones.uno.BlameClasses.executeBlame;
+import static milestones.uno.DefectiveClasses.*;
+import static milestones.uno.GetCommits.writeCommit;
+import static milestones.uno.GetReleaseInfo.getVersionInf;
+import static milestones.uno.JiraBlameCommitIntersection.*;
+import static milestones.uno.JiraVersion.retrieveTicketAvFVFromJira;
+import static milestones.uno.JiraVersion.retrieveTicketOnlyFVFromJira;
+import static milestones.uno.RetrieveClasses.cloneRepository;
+import static milestones.uno.RetrieveClasses.createCsvClass;
+import static utility.CreateDir.createDirectory;
 import static utility.ImportProperties.*;
 
 public class CalculateMetrics {
@@ -740,11 +750,11 @@ public class CalculateMetrics {
 
         importProp(PROJECT1);
 
-        /*createDirectory(PROJECT1);
+        createDirectory(PROJECT1);
         cloneRepository();
         createCsvClass();
         executeBlame();
-        getVersionInfo(PROJECT1);
+        getVersionInf(PROJECT1);
         writeCommit(PROJECT1);
         retrieveTicketAvFVFromJira(PROJECT1);
         retrieveTicketOnlyFVFromJira(PROJECT1);
@@ -779,29 +789,29 @@ public class CalculateMetrics {
         double p = getProportion();
         System.out.println(p);
         calculatePredictedIV(p);
-        sumBuggyPredicted();*/
-        //createPreFinalCSV1(createPreFinalCSV2());
+        sumBuggyPredicted();
+        createPreFinalCSV1(createPreFinalCSV2());
 
-        /*retrieveLOCFromTrees();
+        retrieveLOCFromTrees();
 
         retrieveLOCFromTreesWithIndexAndSum();
         writeMaxAvgLoc(retrieveMaxAndAverageLoc());
         calculateSizeAgeAuthors();
         calculateChgSetSize();
-        retrieveMaxAndAverageChgSetSize();*/
+        retrieveMaxAndAverageChgSetSize();
         writeFinal(writePreFinal(createFinalCSV()));
 
 
 
         //Project ZOOKEEPER
 
-        /*importProp(PROJECT2);
+        importProp(PROJECT2);
 
         createDirectory(PROJECT2);
         cloneRepository();
         createCsvClass();
         executeBlame();
-        getVersionInfo(PROJECT2);
+        getVersionInf(PROJECT2);
         writeCommit(PROJECT2);
         retrieveTicketAvFVFromJira(PROJECT2);
         retrieveTicketOnlyFVFromJira(PROJECT2);
@@ -844,7 +854,7 @@ public class CalculateMetrics {
         calculateChgSetSize();
         retrieveMaxAndAverageChgSetSize();
         writeFinal(writePreFinal(createFinalCSV()));
-*/
+
     }
 
 }

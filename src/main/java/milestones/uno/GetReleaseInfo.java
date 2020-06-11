@@ -23,7 +23,7 @@ public class GetReleaseInfo {
     private static HashMap<LocalDateTime, String> releaseID;
     private static ArrayList<LocalDateTime> releases;
 
-    public static void getVersionInfo(String projName) throws IOException {
+    public static void getVersionInf(String projName) throws IOException {
 
         //Fills the arraylist with releases dates and orders them
         //Ignores releases with missing dates

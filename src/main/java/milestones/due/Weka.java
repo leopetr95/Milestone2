@@ -47,7 +47,7 @@ public class Weka {
 
         if(mode == 0){ //NoSampling
 
-            NoSampling(classifier, training, testing, counter, defectiveInTraining, defectiveInTesting, sizeFinalCSV, numAttr, project);
+            noSampling(classifier, training, testing, counter, defectiveInTraining, defectiveInTesting, sizeFinalCSV, numAttr, project);
 
         }else if(mode == 1){ //UnderSampling
 
@@ -87,7 +87,7 @@ public class Weka {
 
     }
 
-    public static void NoSampling(Classifier classifier, Instances training, Instances testing, int counter, double defectiveInTraining, double defectiveInTesting, int sizeFinalCSV, int numAttr, String project) throws Exception {
+    public static void noSampling(Classifier classifier, Instances training, Instances testing, int counter, double defectiveInTraining, double defectiveInTesting, int sizeFinalCSV, int numAttr, String project) throws Exception {
 
         training.setClassIndex(numAttr-1);
         testing.setClassIndex(numAttr-1);
@@ -369,7 +369,7 @@ public class Weka {
         executeWalkForward(numOfRuns1, PROJECT1);
         writeFinalCSV();
 
-        /*importProp(PROJECT2);
+        importProp(PROJECT2);
 
         int numOfRuns2 = 0;
 
@@ -389,7 +389,7 @@ public class Weka {
         }
 
         executeWalkForward(numOfRuns2, PROJECT2);
-        writeFinalCSV();*/
+        writeFinalCSV();
 
     }
 

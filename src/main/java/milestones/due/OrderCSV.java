@@ -19,7 +19,6 @@ import static utility.ImportProperties.getFinalCSV;
 
 public class OrderCSV {
 
-    private static String string;
     private static final String PROJECT1 = "BOOKKEEPER";
 
     public static void divideForTraining(String pathFinal, int countRun, String path){
