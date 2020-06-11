@@ -175,8 +175,8 @@ public class Weka {
 
         resample.setOptions(options);
         fc.setFilter(resample);
-
         fc.buildClassifier(training);
+
         Evaluation evaluation = new Evaluation(testing);
         evaluation.evaluateModel(fc, testing);
 
@@ -202,16 +202,16 @@ public class Weka {
 
         Resample resample = new Resample();
         resample.setInputFormat(training);
-        FilteredClassifier fc = new FilteredClassifier();
+        FilteredClassifier filteredClassifier = new FilteredClassifier();
 
         SMOTE smote = new SMOTE();
         smote.setInputFormat(training);
-        fc.setFilter(smote);
-        fc.setClassifier(classifier);
-        fc.buildClassifier(training);
+        filteredClassifier.setFilter(smote);
+        filteredClassifier.setClassifier(classifier);
+        filteredClassifier.buildClassifier(training);
 
         Evaluation evaluation = new Evaluation(testing);
-        evaluation.evaluateModel(fc, testing);
+        evaluation.evaluateModel(filteredClassifier, testing);
 
         out.add(new String[]{project, String.valueOf(counter), String.valueOf((training.size() / sizeFinalCSV) *100), String.valueOf(defectiveInTraining), String.valueOf(defectiveInTesting), stringClassifier, "Smote",
                 "No Selection", String.valueOf(evaluation.truePositiveRate(1)), String.valueOf(evaluation.falsePositiveRate(1)), String.valueOf(evaluation.trueNegativeRate(1)),
