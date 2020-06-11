@@ -1,4 +1,4 @@
-package m1;
+package milestone1;
 
 import com.opencsv.CSVWriter;
 import org.eclipse.jgit.api.Git;

@@ -1,4 +1,4 @@
-package m1;
+package milestone1;
 
 import com.opencsv.CSVWriter;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static utility.ImportProperties.*;
-import static m1.RetrieveClasses.logger;
+import static milestone1.RetrieveClasses.logger;
 
 public class GetCommits {
 

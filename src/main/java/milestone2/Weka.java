@@ -1,4 +1,4 @@
-package m2;
+package milestone2;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
