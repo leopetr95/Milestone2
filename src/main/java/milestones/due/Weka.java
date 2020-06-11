@@ -50,7 +50,7 @@ public class Weka {
 
         int numAttr = training.numAttributes();
 
-        int intArray[] = new int[3];
+        int[] intArray = new int[3];
         intArray[0] = counter;
         intArray[1] = sizeFinalCSV;
         intArray[2] = numAttr;

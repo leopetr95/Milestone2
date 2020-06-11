@@ -6,7 +6,7 @@ public class CreateDir {
 
     static String project1 = "BOOKKEEPER";
     static String project2 = "ZOOKEEPER";
-    final private static String PATH = "C:\\Users\\leona\\Desktop\\Project2\\src\\main\\resources\\";
+    private static String PATH = "C:\\Users\\leona\\Desktop\\Project2\\src\\main\\resources\\";
 
     public static void createDirectory(String projectName){
 
