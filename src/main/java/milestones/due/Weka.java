@@ -34,7 +34,13 @@ public class Weka {
 
     static List<String[]> out = new ArrayList<>();
 
-    public static void sampling(String train, String test, Classifier classifier,int counter,  int mode, double defectiveInTraining, double defectiveInTesting, int sizeFinalCSV, String project) throws Exception {
+    public static void sampling(String train, String test, Classifier classifier,  int mode, String project, double[] arrayDouble, int[] arrayInt) throws Exception {
+
+        double defectiveInTraining = arrayDouble[0];
+        double defectiveInTesting = arrayDouble[1];
+
+        int counter = arrayInt[0];
+        int sizeFinalCSV = arrayInt[1];
 
         DataSource source1 = new DataSource(train);
         DataSource source2 = new DataSource(test);
@@ -121,14 +127,15 @@ public class Weka {
 
     }
 
-    public static void underSampling(Classifier classifier, Instances training, Instances testing, double defectiveInTraining, double defectiveInTesting, String project, int[] intArray) throws Exception {
+    public static void underSampling(Classifier classifier, Instances training, Instances testing, double defectiveInTraining, double defectiveInTesting, String project, int[] intArray1) throws Exception {
 
-        int counter = intArray[0];
-        int sizeFinalCSV = intArray[1];
-        int numAttr = intArray[2];
+        int sizeFinalCSV = intArray1[1];
+        int numAttr = intArray1[2];
 
         training.setClassIndex(numAttr-1);
         testing.setClassIndex(numAttr-1);
+
+        int count = intArray1[0];
 
         classifier.buildClassifier(training);
 
@@ -149,13 +156,13 @@ public class Weka {
         Evaluation eval = new Evaluation(testing);
         eval.evaluateModel(fc, testing);
 
-        out.add(new String[]{project, String.valueOf(counter), String.valueOf((training.size() / sizeFinalCSV) *100), String.valueOf(defectiveInTraining), String.valueOf(defectiveInTesting), stringClassifier, "Under Sampling",
+        out.add(new String[]{project, String.valueOf(count), String.valueOf((training.size() / sizeFinalCSV) *100), String.valueOf(defectiveInTraining), String.valueOf(defectiveInTesting), stringClassifier, "Under Sampling",
                 "No Selection", String.valueOf(eval.truePositiveRate(1)), String.valueOf(eval.falsePositiveRate(1)), String.valueOf(eval.trueNegativeRate(1)),
                 String.valueOf(eval.falseNegativeRate(1)), String.valueOf(eval.precision(1)), String.valueOf(eval.recall(1)), String.valueOf(eval.areaUnderROC(1)), String.valueOf(eval.kappa())});
 
         Evaluation evaluationWithFilter = withFilter(classifier, training, testing, eval);
 
-        out.add(new String[]{project, String.valueOf(counter), String.valueOf((training.size() / sizeFinalCSV) *100), String.valueOf(defectiveInTraining), String.valueOf(defectiveInTesting), stringClassifier, "Under Sampling",
+        out.add(new String[]{project, String.valueOf(count), String.valueOf((training.size() / sizeFinalCSV) *100), String.valueOf(defectiveInTraining), String.valueOf(defectiveInTesting), stringClassifier, "Under Sampling",
                 "Best First", String.valueOf(evaluationWithFilter.truePositiveRate(1)), String.valueOf(evaluationWithFilter.falsePositiveRate(1)), String.valueOf(evaluationWithFilter.trueNegativeRate(1)),
                 String.valueOf(evaluationWithFilter.falseNegativeRate(1)), String.valueOf(evaluationWithFilter.precision(1)), String.valueOf(evaluationWithFilter.recall(1)), String.valueOf(evaluationWithFilter.areaUnderROC(1)), String.valueOf(evaluationWithFilter.kappa())});
 
@@ -326,6 +333,14 @@ public class Weka {
                 defectiveInTraining = yesPercentage(csvReader);
                 defectiveInTesting = yesPercentage(csvReader1);
 
+                double[] arrayDouble = new double[2];
+                arrayDouble[0] = defectiveInTraining;
+                arrayDouble[1] = defectiveInTesting;
+
+                int[] arrayInt = new int[2];
+                arrayInt[0] = i;
+                arrayInt[1] = sizeFinalCSV;
+
                 Classifier[] classifiers = new Classifier[3];
                 classifiers[0] = new NaiveBayes();
                 classifiers[1] = new IBk();
@@ -335,10 +350,10 @@ public class Weka {
 
                     if(!(j == 2 && ((i == 6)  || (i==7) )) ) {
 
-                        sampling(train, test, classifiers[j], i, 0, defectiveInTraining, defectiveInTesting, sizeFinalCSV, project); //noSampling
-                        sampling(train, test, classifiers[j], i, 1, defectiveInTraining, defectiveInTesting, sizeFinalCSV, project); //underSampling
-                        sampling(train, test, classifiers[j], i, 2, defectiveInTraining, defectiveInTesting, sizeFinalCSV, project); //overSampling
-                        sampling(train, test, classifiers[j], i, 3, defectiveInTraining, defectiveInTesting, sizeFinalCSV, project); //Smote
+                        sampling(train, test, classifiers[j], 0, project, arrayDouble, arrayInt); //noSampling
+                        sampling(train, test, classifiers[j], 1, project, arrayDouble, arrayInt); //underSampling
+                        sampling(train, test, classifiers[j], 2, project, arrayDouble, arrayInt); //overSampling
+                        sampling(train, test, classifiers[j], 3, project, arrayDouble, arrayInt); //Smote
 
                     }
 
