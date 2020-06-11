@@ -253,6 +253,51 @@ public class ImportProperties {
     private static String chgSetSize = "";
     private static String maxAvgChgSetSize = "";
     private static String finalCSV = "";
+    private static String testDir = "";
+    private static String trainDir = "";
+    private static String testDirArff = "";
+    private static String trainDirArff = "";
+    private static String m2final = "";
+
+    public static String getM2final() {
+        return m2final;
+    }
+
+    public static void setM2final(String m2final) {
+        ImportProperties.m2final = m2final;
+    }
+
+    public static String getTestDirArff() {
+        return testDirArff;
+    }
+
+    public static void setTestDirArff(String testDirArff) {
+        ImportProperties.testDirArff = testDirArff;
+    }
+
+    public static String getTrainDirArff() {
+        return trainDirArff;
+    }
+
+    public static void setTrainDirArff(String trainDirArff) {
+        ImportProperties.trainDirArff = trainDirArff;
+    }
+
+    public static String getTestDir() {
+        return testDir;
+    }
+
+    public static void setTestDir(String testDir) {
+        ImportProperties.testDir = testDir;
+    }
+
+    public static String getTrainDir() {
+        return trainDir;
+    }
+
+    public static void setTrainDir(String trainDir) {
+        ImportProperties.trainDir = trainDir;
+    }
 
     public static void importProp(String projName) {
 
@@ -300,6 +345,11 @@ public class ImportProperties {
                 chgSetSize = properties.getProperty("chgSetSize");
                 maxAvgChgSetSize = properties.getProperty("maxAvgChgSetSize");
                 finalCSV = properties.getProperty("finalCSV");
+                testDir = properties.getProperty("testDir");
+                trainDir = properties.getProperty("trainDir");
+                testDirArff = properties.getProperty("testDirArff");
+                trainDirArff = properties.getProperty("trainDirArff");
+                m2final = properties.getProperty("m2final");
 
             } catch (IOException e) {
 

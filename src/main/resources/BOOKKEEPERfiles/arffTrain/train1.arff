@@ -1,0 +1,16 @@
+@relation train1
+
+@attribute Index string
+@attribute Class string
+@attribute Size string
+@attribute Age string
+@attribute NumberOfAuthors string
+@attribute Sum string
+@attribute MaxChg string
+@attribute AvgChg string
+@attribute MaxLoc string
+@attribute AvgLoc string
+@attribute ChgSetSize string
+@attribute Bugginess string
+
+@data

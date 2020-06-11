@@ -11,13 +11,16 @@ public class CreateDir {
 
         new File("C:\\Users\\leona\\Desktop\\Project2\\src\\main\\resources\\" + projectName + "files\\").mkdirs();
         new File("C:\\Users\\leona\\Desktop\\Project2\\src\\main\\resources\\" + projectName + "files\\metricsFiles").mkdirs();
+        new File("C:\\Users\\leona\\Desktop\\Project2\\src\\main\\resources\\" + projectName + "files\\csvTrain").mkdirs();
+        new File("C:\\Users\\leona\\Desktop\\Project2\\src\\main\\resources\\" + projectName + "files\\csvTest").mkdirs();
+        new File("C:\\Users\\leona\\Desktop\\Project2\\src\\main\\resources\\" + projectName + "files\\arffTrain").mkdirs();
+        new File("C:\\Users\\leona\\Desktop\\Project2\\src\\main\\resources\\" + projectName + "files\\arffTest").mkdirs();
 
     }
 
     public static void main(String[] args){
 
         createDirectory(project1);
-        createDirectory(project2);
 
     }
 

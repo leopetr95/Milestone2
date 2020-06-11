@@ -26,6 +26,16 @@ public class Values {
         this.subValues = subValues;
     }
 
+    public Values(int counter, String string1, String string2, String string3, String string4, SubValues subValues){
+
+        this.counter = counter;
+        this.string1 = string1;
+        this.string2 = string2;
+        this.string3 = string3;
+        this.string4 = string4;
+        this.subValues = subValues;
+    }
+
     public SubValues getSubValues() {
         return subValues;
     }
@@ -60,7 +70,6 @@ public class Values {
     public int getCounter() {
         return counter;
     }
-
 
     public Values(String string1, String string2, String string3, String string4, int temp, int counter) {
         this.string1 = string1;
