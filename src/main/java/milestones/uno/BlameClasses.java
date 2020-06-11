@@ -19,6 +19,8 @@ import static utility.ImportProperties.*;
 
 public class BlameClasses {
 
+    private BlameClasses(){}
+
     public static void executeBlame(){
 
         try(FileReader fileReader = new FileReader(getCsvClassPath());

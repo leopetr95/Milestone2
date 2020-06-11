@@ -17,6 +17,8 @@ import static utility.ImportProperties.*;
 
 public class RetrieveClasses {
 
+    private RetrieveClasses(){}
+
     static final Logger logger = Logger.getLogger(String.valueOf(JiraVersion.class));
 
     /*

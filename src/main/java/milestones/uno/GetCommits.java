@@ -21,6 +21,8 @@ import static milestones.uno.RetrieveClasses.logger;
 
 public class GetCommits {
 
+    private GetCommits(){}
+
     private static final String PROJECT1 = "BOOKKEEPER";
     private static final String PROJECT2 = "ZOOKEEPER";
 

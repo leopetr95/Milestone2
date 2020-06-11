@@ -19,6 +19,8 @@ import org.json.JSONArray;
 
 public class GetReleaseInfo {
 
+    private GetReleaseInfo(){}
+
     private static HashMap<LocalDateTime, String> releaseNames;
     private static HashMap<LocalDateTime, String> releaseID;
     private static ArrayList<LocalDateTime> releases;

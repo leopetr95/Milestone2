@@ -158,7 +158,6 @@ public class DefectiveClasses {
 
         }
 
-        System.out.println(p);
         return p;
 
     }

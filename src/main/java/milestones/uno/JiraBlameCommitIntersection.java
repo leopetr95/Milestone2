@@ -15,6 +15,8 @@ import static utility.ImportProperties.*;
 
 public class JiraBlameCommitIntersection {
 
+    private JiraBlameCommitIntersection(){}
+
     private static final String STRINGTICKET = "Ticket";
     private static final String STRINGCLASS = "Class";
 

@@ -727,13 +727,6 @@ public class CalculateMetrics {
             //Index, Class, Size, Age, NumberOfAuthors, Sum, MaxChg, AvgChg, MaxLoc, AvgLoc, ChgSetSize
             csvWriter.writeNext(new String[]{INDEX, STRINGCLASS, "Size", "Age", "NumberOfAuthors", "Sum", "MaxChg", "AvgChg", "MaxLoc", "AvgLoc", "ChgSetSize", "Bugginess"});
 
-            for(String[] strings: finalList){
-
-                System.out.println(strings.length);
-                System.out.println();
-
-            }
-
             finalList.removeIf(strings -> strings[11].equals("0"));
 
             csvWriter.writeAll(finalList);
@@ -787,7 +780,6 @@ public class CalculateMetrics {
         //ticket without Affected Version
         determineOV(1, getBlameJiraIntersectionFVOnly(), getBlameJiraIntersectionOVFVOnly(), intervals);
         double p = getProportion();
-        System.out.println(p);
         calculatePredictedIV(p);
         sumBuggyPredicted();
         createPreFinalCSV1(createPreFinalCSV2());
