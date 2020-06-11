@@ -258,6 +258,15 @@ public class ImportProperties {
     private static String testDirArff = "";
     private static String trainDirArff = "";
     private static String m2final = "";
+    private static String anotherPath = "";
+
+    public static String getAnotherPath() {
+        return anotherPath;
+    }
+
+    public static void setAnotherPath(String anotherPath) {
+        ImportProperties.anotherPath = anotherPath;
+    }
 
     public static String getM2final() {
         return m2final;
@@ -350,6 +359,7 @@ public class ImportProperties {
                 testDirArff = properties.getProperty("testDirArff");
                 trainDirArff = properties.getProperty("trainDirArff");
                 m2final = properties.getProperty("m2final");
+                anotherPath = properties.getProperty("anotherPath");
 
             } catch (IOException e) {
 
