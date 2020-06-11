@@ -1,4 +1,4 @@
-package m1.logic;
+package m1;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -44,7 +44,9 @@ public class ConvertToArff{
 
         importProp(PROJECT1);
 
-        try (Stream<Path> walk = Files.walk(Paths.get(getTestDir().substring(0, getTestDir().length()-4)))) {
+        try (Stream<Path> walk = Files.walk(Paths.get(getTestDir().substring(0, getTestDir().length()-4)));
+             Stream<Path> walk1 = Files.walk(Paths.get(getTrainDir().substring(0, getTrainDir().length()-5)))
+        ) {
 
             List<String> result = walk.filter(Files::isRegularFile)
                     .map(Path::toString).collect(Collectors.toList());
@@ -57,7 +59,6 @@ public class ConvertToArff{
 
             }
 
-            Stream<Path> walk1 = Files.walk(Paths.get(getTrainDir().substring(0, getTrainDir().length()-5)));
             List<String> result1 = walk1.filter(Files::isRegularFile)
                     .map(Path::toString).collect(Collectors.toList());
 

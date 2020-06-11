@@ -1,4 +1,4 @@
-package m1.logic;
+package m1;
 
 import com.opencsv.CSVWriter;
 import org.eclipse.jgit.api.Git;

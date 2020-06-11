@@ -1,4 +1,4 @@
-package m1.logic;
+package m1;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
@@ -145,7 +145,12 @@ public class DefectiveClasses {
 
             }
 
-            p = p / counter;
+
+            if(counter != 0){
+
+                p = p / counter;
+
+            }
 
         }catch(IOException e){
 
