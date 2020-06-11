@@ -31,6 +31,8 @@ public class Weka {
 
     private static final String PROJECT1 = "BOOKKEEPER";
     private static final String PROJECT2 = "ZOOKEEPER";
+    private static final String NOSELECTION = "No Selection";
+    private static final String BESTFIRST = "Best First";
 
     static List<String[]> out = new ArrayList<>();
 
@@ -115,13 +117,13 @@ public class Weka {
         String stringClassifier = determineClassifier(classifier);
 
         out.add(new String[]{project, String.valueOf(counter), String.valueOf((training.size() / sizeFinalCSV) *100), String.valueOf(defectiveInTraining), String.valueOf(defectiveInTesting), stringClassifier, "No Sampling",
-        "No Selection", String.valueOf(eval.truePositiveRate(1)), String.valueOf(eval.falsePositiveRate(1)), String.valueOf(eval.trueNegativeRate(1)),
+        NOSELECTION, String.valueOf(eval.truePositiveRate(1)), String.valueOf(eval.falsePositiveRate(1)), String.valueOf(eval.trueNegativeRate(1)),
                 String.valueOf(eval.falseNegativeRate(1)), String.valueOf(eval.precision(1)), String.valueOf(eval.recall(1)), String.valueOf(eval.areaUnderROC(1)), String.valueOf(eval.kappa())});
 
         Evaluation evaluationWithFilter = withFilter(classifier, training, testing, eval);
 
         out.add(new String[]{project, String.valueOf(counter), String.valueOf((training.size() / sizeFinalCSV) *100), String.valueOf(defectiveInTraining), String.valueOf(defectiveInTesting), stringClassifier, "No Sampling",
-                "Best First", String.valueOf(evaluationWithFilter.truePositiveRate(1)), String.valueOf(evaluationWithFilter.falsePositiveRate(1)), String.valueOf(evaluationWithFilter.trueNegativeRate(1)),
+                BESTFIRST, String.valueOf(evaluationWithFilter.truePositiveRate(1)), String.valueOf(evaluationWithFilter.falsePositiveRate(1)), String.valueOf(evaluationWithFilter.trueNegativeRate(1)),
                 String.valueOf(evaluationWithFilter.falseNegativeRate(1)), String.valueOf(evaluationWithFilter.precision(1)), String.valueOf(evaluationWithFilter.recall(1)), String.valueOf(evaluationWithFilter.areaUnderROC(1)), String.valueOf(evaluationWithFilter.kappa())});
 
 
@@ -157,13 +159,13 @@ public class Weka {
         eval.evaluateModel(fc, testing);
 
         out.add(new String[]{project, String.valueOf(count), String.valueOf((training.size() / sizeFinalCSV) *100), String.valueOf(defectiveInTraining), String.valueOf(defectiveInTesting), stringClassifier, "Under Sampling",
-                "No Selection", String.valueOf(eval.truePositiveRate(1)), String.valueOf(eval.falsePositiveRate(1)), String.valueOf(eval.trueNegativeRate(1)),
+                NOSELECTION, String.valueOf(eval.truePositiveRate(1)), String.valueOf(eval.falsePositiveRate(1)), String.valueOf(eval.trueNegativeRate(1)),
                 String.valueOf(eval.falseNegativeRate(1)), String.valueOf(eval.precision(1)), String.valueOf(eval.recall(1)), String.valueOf(eval.areaUnderROC(1)), String.valueOf(eval.kappa())});
 
         Evaluation evaluationWithFilter = withFilter(classifier, training, testing, eval);
 
         out.add(new String[]{project, String.valueOf(count), String.valueOf((training.size() / sizeFinalCSV) *100), String.valueOf(defectiveInTraining), String.valueOf(defectiveInTesting), stringClassifier, "Under Sampling",
-                "Best First", String.valueOf(evaluationWithFilter.truePositiveRate(1)), String.valueOf(evaluationWithFilter.falsePositiveRate(1)), String.valueOf(evaluationWithFilter.trueNegativeRate(1)),
+                BESTFIRST, String.valueOf(evaluationWithFilter.truePositiveRate(1)), String.valueOf(evaluationWithFilter.falsePositiveRate(1)), String.valueOf(evaluationWithFilter.trueNegativeRate(1)),
                 String.valueOf(evaluationWithFilter.falseNegativeRate(1)), String.valueOf(evaluationWithFilter.precision(1)), String.valueOf(evaluationWithFilter.recall(1)), String.valueOf(evaluationWithFilter.areaUnderROC(1)), String.valueOf(evaluationWithFilter.kappa())});
 
 
@@ -204,13 +206,13 @@ public class Weka {
         evaluation.evaluateModel(fc, testing);
 
         out.add(new String[]{project, String.valueOf(counter), String.valueOf((training.size() / sizeFinalCSV) *100), String.valueOf(defectiveInTraining), String.valueOf(defectiveInTesting), stringClassifier, "Over Sampling",
-                "No Selection", String.valueOf(evaluation.truePositiveRate(1)), String.valueOf(evaluation.falsePositiveRate(1)), String.valueOf(evaluation.trueNegativeRate(1)),
+                NOSELECTION, String.valueOf(evaluation.truePositiveRate(1)), String.valueOf(evaluation.falsePositiveRate(1)), String.valueOf(evaluation.trueNegativeRate(1)),
                 String.valueOf(evaluation.falseNegativeRate(1)), String.valueOf(evaluation.precision(1)), String.valueOf(evaluation.recall(1)), String.valueOf(evaluation.areaUnderROC(1)), String.valueOf(evaluation.kappa())});
 
         Evaluation evaluationWithFilter = withFilter(classifier, training, testing, evaluation);
 
         out.add(new String[]{project, String.valueOf(counter), String.valueOf((training.size() / sizeFinalCSV) *100), String.valueOf(defectiveInTraining), String.valueOf(defectiveInTesting), stringClassifier, "Over Sampling",
-                "Best First", String.valueOf(evaluationWithFilter.truePositiveRate(1)), String.valueOf(evaluationWithFilter.falsePositiveRate(1)), String.valueOf(evaluationWithFilter.trueNegativeRate(1)),
+                BESTFIRST, String.valueOf(evaluationWithFilter.truePositiveRate(1)), String.valueOf(evaluationWithFilter.falsePositiveRate(1)), String.valueOf(evaluationWithFilter.trueNegativeRate(1)),
                 String.valueOf(evaluationWithFilter.falseNegativeRate(1)), String.valueOf(evaluationWithFilter.precision(1)), String.valueOf(evaluationWithFilter.recall(1)), String.valueOf(evaluationWithFilter.areaUnderROC(1)), String.valueOf(evaluationWithFilter.kappa())});
 
 
@@ -241,13 +243,13 @@ public class Weka {
         evaluation.evaluateModel(filteredClassifier, testing);
 
         out.add(new String[]{project, String.valueOf(counter), String.valueOf((training.size() / sizeFinalCSV) *100), String.valueOf(defectiveInTraining), String.valueOf(defectiveInTesting), stringClassifier, "Smote",
-                "No Selection", String.valueOf(evaluation.truePositiveRate(1)), String.valueOf(evaluation.falsePositiveRate(1)), String.valueOf(evaluation.trueNegativeRate(1)),
+                NOSELECTION, String.valueOf(evaluation.truePositiveRate(1)), String.valueOf(evaluation.falsePositiveRate(1)), String.valueOf(evaluation.trueNegativeRate(1)),
                 String.valueOf(evaluation.falseNegativeRate(1)), String.valueOf(evaluation.precision(1)), String.valueOf(evaluation.recall(1)), String.valueOf(evaluation.areaUnderROC(1)), String.valueOf(evaluation.kappa())});
 
         Evaluation evaluationWithFilter = withFilter(classifier, training, testing, evaluation);
 
         out.add(new String[]{project, String.valueOf(counter), String.valueOf((training.size() / sizeFinalCSV) *100), String.valueOf(defectiveInTraining), String.valueOf(defectiveInTesting), stringClassifier, "Smote",
-                "Best First", String.valueOf(evaluationWithFilter.truePositiveRate(1)), String.valueOf(evaluationWithFilter.falsePositiveRate(1)), String.valueOf(evaluationWithFilter.trueNegativeRate(1)),
+                BESTFIRST, String.valueOf(evaluationWithFilter.truePositiveRate(1)), String.valueOf(evaluationWithFilter.falsePositiveRate(1)), String.valueOf(evaluationWithFilter.trueNegativeRate(1)),
                 String.valueOf(evaluationWithFilter.falseNegativeRate(1)), String.valueOf(evaluationWithFilter.precision(1)), String.valueOf(evaluationWithFilter.recall(1)), String.valueOf(evaluationWithFilter.areaUnderROC(1)), String.valueOf(evaluationWithFilter.kappa())});
 
     }
