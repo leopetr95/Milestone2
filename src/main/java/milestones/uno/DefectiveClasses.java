@@ -492,14 +492,4 @@ public class DefectiveClasses {
 
     }
 
-    public static void main(String[] args){
-
-        importProp("BOOKKEEPER");
-
-        calculatePredictedIV(getProportion());
-        sumBuggyPredicted();
-        createPreFinalCSV1(createPreFinalCSV2());
-
-    }
-
 }

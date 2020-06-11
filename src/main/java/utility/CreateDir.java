@@ -7,6 +7,8 @@ import static utility.ImportProperties.importProp;
 
 public class CreateDir {
 
+    private CreateDir(){}
+
     static String project1 = "BOOKKEEPER";
     static String project2 = "ZOOKEEPER";
 
