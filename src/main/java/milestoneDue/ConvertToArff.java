@@ -1,4 +1,4 @@
-package milestone2;
+package milestoneDue;
 
 import weka.core.Instances;
 import weka.core.converters.ArffSaver;

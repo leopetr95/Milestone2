@@ -1,4 +1,4 @@
-package milestone1;
+package milestoneUno;
 
 import java.io.BufferedReader;
 import java.io.IOException;

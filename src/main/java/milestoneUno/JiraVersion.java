@@ -1,4 +1,4 @@
-package milestone1;
+package milestoneUno;
 
 import com.opencsv.CSVWriter;
 import org.json.JSONArray;
@@ -8,7 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import static milestone1.GetReleaseInfo.readJsonFromUrl;
+import static milestoneUno.GetReleaseInfo.readJsonFromUrl;
 import static utility.ImportProperties.*;
 
 
