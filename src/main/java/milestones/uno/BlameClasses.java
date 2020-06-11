@@ -2,6 +2,8 @@ package milestones.uno;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
+import entity.Keys;
+import entity.Values;
 import org.eclipse.jgit.api.BlameCommand;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -12,7 +14,9 @@ import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static utility.ImportProperties.*;
 
@@ -21,6 +25,9 @@ public class BlameClasses {
 
     private BlameClasses(){}
 
+    /*
+    * Execute git blame for all .java files
+    * */
     public static void executeBlame(){
 
         try(FileReader fileReader = new FileReader(getCsvClassPath());
@@ -33,6 +40,8 @@ public class BlameClasses {
 
             FileRepository fileRepository = new FileRepository(getcPath());
             Git git = new Git(fileRepository);
+
+            Map<Keys, String> map= new HashMap<>();
 
             for(String[] string: list){
 
@@ -49,9 +58,20 @@ public class BlameClasses {
 
                 for(int i = 0; i < size; i++){
 
-                    list1.add(new String[] {df.format(result.getSourceAuthor(i).getWhen()), result.getSourceCommit(i).getTree().toString(), string[1]});
+                    Keys keys = new Keys(df.format(result.getSourceAuthor(i).getWhen()), string[1]);
+                    if(!map.containsKey(keys)){
+
+                        map.put(keys, result.getSourceCommit(i).getTree().toString());
+
+                    }
 
                 }
+
+            }
+
+            for(Map.Entry<Keys, String> entry: map.entrySet()){
+
+                list1.add(new String[]{entry.getKey().getKey1().toString(), entry.getValue(), entry.getKey().getKey2().toString()});
 
             }
 

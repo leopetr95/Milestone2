@@ -77,7 +77,7 @@ public class JiraVersion {
     }
 
     /*
-    * Create a csv file containing ticket with Affected Version, Fixed Version and Injected Version
+    * Create a csv file containing ticket with Fixed Version and Affected Version
     * */
     public static void retrieveTicketAvFVFromJira(String projName) throws IOException {
 
@@ -91,7 +91,6 @@ public class JiraVersion {
 
         JSONObject json = readJsonFromUrl(urlAffectedVersion);
         JSONArray issues = json.getJSONArray("issues");
-
 
         int i;
         int j;

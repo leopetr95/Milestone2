@@ -91,7 +91,6 @@ public class GetCommits {
 
             //Write header
             csvWriter.writeNext(new String[]{"Date", "Tree", "Ticket"});
-
             csvWriter.writeAll(dataList);
             csvWriter.flush();
 

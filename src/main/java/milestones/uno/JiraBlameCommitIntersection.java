@@ -36,7 +36,7 @@ public class JiraBlameCommitIntersection {
 
             List<String[]> listCommit =  csvReader.readAll();
 
-            //Salto gli header
+            //Skip the header
             csvReader.readNext();
             csvReader1.readNext();
 
@@ -49,7 +49,7 @@ public class JiraBlameCommitIntersection {
 
                 for(String[] s: listBlame){
 
-                    //controllo l'uguaglianza tra i tree
+                    //checking tree equality
                     if(r[1].equals(s[1])){
 
                         Keys key = new Keys(s[2], r[2]);

@@ -740,7 +740,6 @@ public class CalculateMetrics {
     public static void main(String[] args) throws IOException, GitAPIException {
 
         //Project BOOKKEEPER
-
         importProp(PROJECT1);
 
         createDirectory(PROJECT1);

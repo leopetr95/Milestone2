@@ -53,8 +53,8 @@ public class RetrieveClasses {
     public static void createCsvClass(){
 
         try(Stream<Path> walk = Files.walk(Paths.get(getPath()));
-             FileWriter fileWriter = new FileWriter(getCsvClassPath());
-             CSVWriter csvWriter = new CSVWriter(fileWriter)) {
+            FileWriter fileWriter = new FileWriter(getCsvClassPath());
+            CSVWriter csvWriter = new CSVWriter(fileWriter)) {
 
             List<String> result = walk.map(Path::toString).filter(f -> f.endsWith(".java")).collect(Collectors.toList());
 

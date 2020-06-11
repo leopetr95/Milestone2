@@ -3,6 +3,7 @@ package utility;
 import java.io.File;
 
 import static utility.ImportProperties.getAnotherPath;
+import static utility.ImportProperties.importProp;
 
 public class CreateDir {
 
@@ -17,13 +18,6 @@ public class CreateDir {
         new File(getAnotherPath() + projectName + "files\\csvTest").mkdirs();
         new File(getAnotherPath() + projectName + "files\\arffTrain").mkdirs();
         new File(getAnotherPath() + projectName + "files\\arffTest").mkdirs();
-
-    }
-
-    public static void main(String[] args){
-
-        createDirectory(project1);
-
 
     }
 
