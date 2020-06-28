@@ -20,6 +20,7 @@ import static utility.ImportProperties.getFinalCSV;
 public class OrderCSV {
 
     private static final String PROJECT1 = "BOOKKEEPER";
+    private static final String PROJECT2 = "ZOOKEEPER";
 
     public static void divideForTraining(String pathFinal, int countRun, String path){
         
@@ -112,7 +113,7 @@ public class OrderCSV {
     public static void main(String[] args){
 
 
-        importProp(PROJECT1);
+        importProp(PROJECT2);
 
         try(FileReader fileReader = new FileReader(getVersionInfo());
             CSVReader csvReader = new CSVReader(fileReader)

@@ -44,19 +44,9 @@ public class JiraVersion {
 
             String ticket = issues.getJSONObject(i).get("key").toString();
 
-            /**
-             * Questi ulteriri array JSON sono stati necessari per accedere alle sottoliste presenti all'interno
-             * di issues, cioè filed, che contiene sia FixVersions che version per determinare AV e FV.
-             */
             JSONArray fixedVersions = issues.getJSONObject(i).getJSONObject(FIELDS).getJSONArray("fixVersions");
 
             String fixVersion = "";
-
-            /**
-             * Il ciclo è necessario in quanto alcuni ticket possiedono molteplici fixed-version. In questo
-             * modo li includiamo all'interno del file e manteniamo l'index corretto sfruttando la variabile
-             * counter.
-             */
 
             for (j = 0; j < fixedVersions.length(); j++) {
 
@@ -101,10 +91,7 @@ public class JiraVersion {
         for (i = 0; i < issues.length(); i++) {
 
             String ticket = issues.getJSONObject(i).get("key").toString();
-            /**
-             * Questi ulteriri array JSON sono stati necessari per accedere alle sottoliste presenti all'interno
-             * di issues, cioè filed, che contiene sia FixVersions che version per determinare AV e FV.
-             */
+
             JSONArray fixedVersions = issues.getJSONObject(i).getJSONObject(FIELDS).getJSONArray("fixVersions");
             JSONArray affectedVersions = issues.getJSONObject(i).getJSONObject(FIELDS).getJSONArray("versions");
 
@@ -112,14 +99,8 @@ public class JiraVersion {
             String affectedVersion = "";
 
 
-            //prendo la prima perchè la più vecchia
+            //taking the first one because it's the eldest
             affectedVersion = affectedVersions.getJSONObject(0).get("name").toString();
-
-            /**
-             * Il ciclo è necessario in quanto alcuni ticket possiedono molteplici fixed-version. In questo
-             * modo li includiamo all'interno del file e manteniamo l'index corretto sfruttando la variabile
-             * counter.
-             */
 
             for (j = 0; j < fixedVersions.length(); j++) {
 

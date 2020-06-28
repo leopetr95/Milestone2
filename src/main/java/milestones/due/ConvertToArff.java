@@ -18,6 +18,7 @@ import static utility.ImportProperties.*;
 public class ConvertToArff{
 
     private static final String PROJECT1 = "BOOKKEEPER";
+    private static final String PROJECT2 = "ZOOKEEPER";
 
 
     public static void convert(String pathCsv, String pathArff){
@@ -42,7 +43,7 @@ public class ConvertToArff{
 
     public static void main(String[] args){
 
-        importProp(PROJECT1);
+        importProp(PROJECT2);
 
         try (Stream<Path> walk = Files.walk(Paths.get(getTestDir().substring(0, getTestDir().length()-4)));
              Stream<Path> walk1 = Files.walk(Paths.get(getTrainDir().substring(0, getTrainDir().length()-5)))
