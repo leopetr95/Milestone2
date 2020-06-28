@@ -740,7 +740,7 @@ public class CalculateMetrics {
     public static void main(String[] args) throws IOException, GitAPIException {
 
         //Project BOOKKEEPER
-        /*importProp(PROJECT1);
+        importProp(PROJECT1);
 
         createDirectory(PROJECT1);
         cloneRepository();
@@ -790,7 +790,7 @@ public class CalculateMetrics {
         calculateSizeAgeAuthors();
         calculateChgSetSize();
         retrieveMaxAndAverageChgSetSize();
-        writeFinal(writePreFinal(createFinalCSV()));*/
+        writeFinal(writePreFinal(createFinalCSV()));
 
 
         //Project ZOOKEEPER

@@ -113,11 +113,34 @@ public class OrderCSV {
     public static void main(String[] args){
 
 
-        importProp(PROJECT2);
+        importProp(PROJECT1);
 
         try(FileReader fileReader = new FileReader(getVersionInfo());
             CSVReader csvReader = new CSVReader(fileReader)
             ){
+
+            csvReader.readNext();
+            List<String[]> listVersion = csvReader.readAll();
+            int halfSize = (listVersion.size()/2) + 1;
+
+            for(int i = 1; i < halfSize; i++){
+
+                divideForTesting(getFinalCSV(), i, getTestDir());
+                divideForTraining(getFinalCSV(), i, getTrainDir());
+
+            }
+
+        }catch(IOException e){
+
+            e.printStackTrace();
+
+        }
+
+        importProp(PROJECT2);
+
+        try(FileReader fileReader = new FileReader(getVersionInfo());
+            CSVReader csvReader = new CSVReader(fileReader)
+        ){
 
             csvReader.readNext();
             List<String[]> listVersion = csvReader.readAll();

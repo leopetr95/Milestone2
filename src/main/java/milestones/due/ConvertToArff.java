@@ -43,6 +43,38 @@ public class ConvertToArff{
 
     public static void main(String[] args){
 
+        importProp(PROJECT1);
+
+        try (Stream<Path> walk = Files.walk(Paths.get(getTestDir().substring(0, getTestDir().length()-4)));
+             Stream<Path> walk1 = Files.walk(Paths.get(getTrainDir().substring(0, getTrainDir().length()-5)))
+        ) {
+
+            List<String> result = walk.filter(Files::isRegularFile)
+                    .map(Path::toString).collect(Collectors.toList());
+
+            for(String string: result){
+
+                String string1 = string.replace("csvTest", "arffTest");
+                String string2 = string1.replace("csv", "arff");
+                convert(string, string2);
+
+            }
+
+            List<String> result1 = walk1.filter(Files::isRegularFile)
+                    .map(Path::toString).collect(Collectors.toList());
+
+            for(String string: result1){
+
+                String string1 = string.replace("csvTrain", "arffTrain");
+                String string2 = string1.replace("csv", "arff");
+                convert(string, string2);
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         importProp(PROJECT2);
 
         try (Stream<Path> walk = Files.walk(Paths.get(getTestDir().substring(0, getTestDir().length()-4)));
@@ -74,6 +106,7 @@ public class ConvertToArff{
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
     }
 
