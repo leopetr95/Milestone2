@@ -43,70 +43,50 @@ public class ConvertToArff{
 
     public static void main(String[] args){
 
-        importProp(PROJECT1);
+        for(int i = 1; i < 3; i++){
 
-        try (Stream<Path> walk = Files.walk(Paths.get(getTestDir().substring(0, getTestDir().length()-4)));
-             Stream<Path> walk1 = Files.walk(Paths.get(getTrainDir().substring(0, getTrainDir().length()-5)))
-        ) {
+            if (i == 1){
 
-            List<String> result = walk.filter(Files::isRegularFile)
-                    .map(Path::toString).collect(Collectors.toList());
+                importProp(PROJECT1);
 
-            for(String string: result){
+            }else if(i == 2){
 
-                String string1 = string.replace("csvTest", "arffTest");
-                String string2 = string1.replace("csv", "arff");
-                convert(string, string2);
+                importProp(PROJECT2);
 
             }
 
-            List<String> result1 = walk1.filter(Files::isRegularFile)
-                    .map(Path::toString).collect(Collectors.toList());
+            try (Stream<Path> walk = Files.walk(Paths.get(getTestDir().substring(0, getTestDir().length()-4)));
+                 Stream<Path> walk1 = Files.walk(Paths.get(getTrainDir().substring(0, getTrainDir().length()-5)))
+            ) {
 
-            for(String string: result1){
+                List<String> result = walk.filter(Files::isRegularFile)
+                        .map(Path::toString).collect(Collectors.toList());
 
-                String string1 = string.replace("csvTrain", "arffTrain");
-                String string2 = string1.replace("csv", "arff");
-                convert(string, string2);
+                for(String string: result){
 
+                    String string1 = string.replace("csvTest", "arffTest");
+                    String string2 = string1.replace("csv", "arff");
+                    convert(string, string2);
+
+                }
+
+                List<String> result1 = walk1.filter(Files::isRegularFile)
+                        .map(Path::toString).collect(Collectors.toList());
+
+                for(String string: result1){
+
+                    String string1 = string.replace("csvTrain", "arffTrain");
+                    String string2 = string1.replace("csv", "arff");
+                    convert(string, string2);
+
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
+
         }
-
-        importProp(PROJECT2);
-
-        try (Stream<Path> walk = Files.walk(Paths.get(getTestDir().substring(0, getTestDir().length()-4)));
-             Stream<Path> walk1 = Files.walk(Paths.get(getTrainDir().substring(0, getTrainDir().length()-5)))
-        ) {
-
-            List<String> result = walk.filter(Files::isRegularFile)
-                    .map(Path::toString).collect(Collectors.toList());
-
-            for(String string: result){
-
-                String string1 = string.replace("csvTest", "arffTest");
-                String string2 = string1.replace("csv", "arff");
-                convert(string, string2);
-
-            }
-
-            List<String> result1 = walk1.filter(Files::isRegularFile)
-                    .map(Path::toString).collect(Collectors.toList());
-
-            for(String string: result1){
-
-                String string1 = string.replace("csvTrain", "arffTrain");
-                String string2 = string1.replace("csv", "arff");
-                convert(string, string2);
-
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
 
     }
 

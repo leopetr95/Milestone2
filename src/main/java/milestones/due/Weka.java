@@ -35,7 +35,7 @@ public class Weka {
     private static final String BESTFIRST = "Best First";
 
     static List<String[]> out = new ArrayList<>();
-    
+
     public static void sampling(String train, String test, Classifier classifier, int mode, String project, double[] arrayDouble, int[] arrayInt) throws Exception {
 
         double defectiveInTraining = arrayDouble[0];
