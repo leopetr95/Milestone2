@@ -279,11 +279,13 @@ public class DefectiveClasses {
             for(String[] strings: buggyList){
 
                 Keys keys = new Keys(strings[0], strings[4]);
-                if(!map.containsKey(keys)){
 
-                    map.put(keys, strings[6]);
-
-                }
+                map.computeIfAbsent(keys, k-> map.put(keys, strings[6]));
+//                if(!map.containsKey(keys)){
+//
+//                    map.put(keys, strings[6]);
+//
+//                }
 
             }
 
@@ -293,11 +295,14 @@ public class DefectiveClasses {
                 int temp1 = (int) temp;
 
                 Keys keys = new Keys(String.valueOf(temp1), strings[0]);
-                if(!map.containsKey(keys)){
 
-                    map.put(keys, "YES");
+                map.computeIfAbsent(keys, k-> map.put(keys, "YES"));
 
-                }
+//                if(!map.containsKey(keys)){
+//
+//                    map.put(keys, "YES");
+//
+//                }
 
             }
 
@@ -319,11 +324,14 @@ public class DefectiveClasses {
 
     private static Map<Keys, String> contKey(Map<Keys, String> map, Keys keys){
 
-        if(!map.containsKey(keys)){
+        map.computeIfAbsent(keys, k-> map.put(keys, "NO"));
 
-            map.put(keys, "NO");
 
-        }
+//        if(!map.containsKey(keys)){
+//
+//            map.put(keys, "NO");
+//
+//        }
 
         return map;
 
