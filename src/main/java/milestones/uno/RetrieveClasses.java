@@ -21,6 +21,9 @@ public class RetrieveClasses {
 
     static final Logger logger = Logger.getLogger(String.valueOf(JiraVersion.class));
 
+
+    //provadicommit
+
     /*
     * Clone the repository in local directory
     * */
@@ -40,7 +43,6 @@ public class RetrieveClasses {
             } else {
 
                 logger.info("Directory creation failed");
-
             }
 
         }
