@@ -281,11 +281,6 @@ public class DefectiveClasses {
                 Keys keys = new Keys(strings[0], strings[4]);
 
                 map.computeIfAbsent(keys, k-> map.put(keys, strings[6]));
-//                if(!map.containsKey(keys)){
-//
-//                    map.put(keys, strings[6]);
-//
-//                }
 
             }
 
@@ -297,12 +292,6 @@ public class DefectiveClasses {
                 Keys keys = new Keys(String.valueOf(temp1), strings[0]);
 
                 map.computeIfAbsent(keys, k-> map.put(keys, "YES"));
-
-//                if(!map.containsKey(keys)){
-//
-//                    map.put(keys, "YES");
-//
-//                }
 
             }
 
