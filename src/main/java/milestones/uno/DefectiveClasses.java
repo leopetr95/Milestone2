@@ -315,13 +315,6 @@ public class DefectiveClasses {
 
         map.computeIfAbsent(keys, k-> map.put(keys, "NO"));
 
-
-//        if(!map.containsKey(keys)){
-//
-//            map.put(keys, "NO");
-//
-//        }
-
         return map;
 
     }
